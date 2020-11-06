@@ -4,14 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!--Foundation-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
     <!--Our stylesheet-->
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    
+
+    <header>
+        <div class="title-bar">
+            <div class="title-bar-left">
+                <a href="#">BCKS</a>
+            </div>
+        </div>
+    </header>
+
+
+    <main>
+        <h1>Welcome!</h1>
+        <div class="grid-container">
+            <div class="grid-y grid-padding-y">
+                <div class="medium-6 cell">
+                    <label for="favorite-title">
+                        Enter in the title and select if it is a movie, book, video game, or anime:
+                    </label>
+                    <input id="favorite-title" type="text" placeholder="Title of your favorite movie, book, video game, or anime">
+                    <fieldset>
+                        <input type="radio" name="media" value="movie" id="movie"><label for="movie">Movie</label>
+                        <input type="radio" name="media" value="book" id="book" required><label for="book">Book</label>
+                        <input type="radio" name="media" value="video-game" id="video-game"><label for="video-game">Video Game</label>
+                        <input type="radio" name="media" value="anime" id="anime"><label for="anime">Anime</label>
+                    </fieldset>
+                </div>
+            </div>
+            <fieldset class="cell large-6">
+                <button class="button" type="submit" value="Submit">Find me recommendations!</button>
+            </fieldset>
+        </div>
+    </main>
+
+
+    <footer>
+
+    </footer>
 
     <!--jQuery-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--Foundation-->
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"></script>
     <!--Our scripts-->
     <script src="books.js"></script>
     <script src="movies.js"></script>
