@@ -16,18 +16,18 @@ function favoriteMovie() {
         url: movieURL,
         method: "GET",
         error: function() {
-            console.log("error");
+            //console.log("error");
             return;
         }
     }).then(function(responseFav) {
 
         //If not a valid movie title
         if(responseFav.Response === "False"){
-            console.log("error");
+            //console.log("error");
         };
 
         //Add to Favorite Box
-        console.log(responseFav);
+        //console.log(responseFav);
         
         //Title
         favTitle = responseFav.Title;
@@ -61,11 +61,11 @@ function resultsMovie() {
         url: getMovieGenreNumURL,
         method: "GET"
     }).then(function(responseGenre) {
-        console.log(responseGenre.results[0].genre_ids);
+        //console.log(responseGenre.results[0].genre_ids);
         let movieGenres = responseGenre.results[0].genre_ids;
         let pickAGenre = Math.floor(Math.random() * movieGenres.length);
         let genreChosen = movieGenres[pickAGenre];
-        console.log(genreChosen);
+        //console.log(genreChosen);
 
         //Find Movies with this same genre id
         let findMovieRecsURL = 'https://api.themoviedb.org/3/discover/movie?with_genres=' + genreChosen + '&api_key=d8731638c74bc1c4039ad5e0a50c36af'
@@ -74,17 +74,17 @@ function resultsMovie() {
             url: findMovieRecsURL,
             method: "GET"
         }).then(function(responseRecommend) {
-            console.log(responseRecommend);
-            console.log(this);
+            //console.log(responseRecommend);
+            //console.log(this);
             findAndUpdateMovie()
 
             function findAndUpdateMovie() {
 
             let allMovies = responseRecommend.results;
             let pickAMovie = Math.floor(Math.random() * allMovies.length);
-            console.log(pickAMovie);
+            //console.log(pickAMovie);
             let getRandomMovie = allMovies[pickAMovie].title;
-            console.log(getRandomMovie);
+            //console.log(getRandomMovie);
 
             let movieResult = getRandomMovie.trim().split(' ').join('+');
 
@@ -101,7 +101,7 @@ function resultsMovie() {
                     };
 
                     //Add to Favorite Box
-                    console.log(responseResult);
+                    //console.log(responseResult);
                     
                     //Title
                     newMovieTitle = responseResult.Title;
