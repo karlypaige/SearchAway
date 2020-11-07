@@ -1,13 +1,10 @@
 //test title var
-let searchValue = "Moana";
-let title = searchValue.trim().split(' ').join('+');
-let favTitle, favPosterURL, favPlot, favRating, favScore;
-var favGenre;
-let genreNum;
+//let searchValue = "Moana";
 
 
-
-function favoriteMovie() {
+function favoriteMovie(userFavorite) {
+    let title = userFavorite.trim().split(' ').join('+');
+    let favTitle, favPosterURL, favPlot, favRating, favScore;
 
     //API Key
     let movieURL = "http://www.omdbapi.com/?t=" + title + "&apikey=c88e35f9";
@@ -45,13 +42,13 @@ function favoriteMovie() {
         favPlot = responseFav.Plot;
         $('#favorite-plot').html(favPlot);
 
-        resultsMovie();
+        resultsMovie(title);
     });
 
 };
 
 
-function resultsMovie() {
+function resultsMovie(title) {
     
 
     //Locate genre types
