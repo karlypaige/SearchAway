@@ -31,7 +31,7 @@ function searchFavorite(event) {
         case 'anime':
             $('.search-section').addClass('hidden');
             $('.results-section').removeClass('hidden');
-            //function for anime favorite
+            favoriteAnime(userFavorite);
             break; 
         default:
             //For testing purposes
