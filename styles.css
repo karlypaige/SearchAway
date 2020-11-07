@@ -1,3 +1,7 @@
+.hidden {
+    display: none;
+}
+
 #favorite-data {
     background-color: plum;
 }
