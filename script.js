@@ -6,7 +6,7 @@ function searchFavorite(event) {
     event.preventDefault();
 
 
-    userFavorite = $('#favorite-title').val();
+    userFavorite = $('#user-favorite').val();
     console.log(userFavorite);
     
     media = $('fieldset input:checked').val();
@@ -31,14 +31,34 @@ function searchFavorite(event) {
         case 'anime':
             $('.search-section').addClass('hidden');
             $('.results-section').removeClass('hidden');
-            //function for anime favorite
+            favoriteAnime(userFavorite);
             break; 
         default:
             //For testing purposes
             $('.search-section').addClass('hidden');
             $('.results-section').removeClass('hidden');
+            //Add error message later
     }
 
 };
 
+//If "Find me recommendations" is clicked
 $('#search').click(searchFavorite);
+
+
+function goBackToSearch(event) {
+    event.preventDefault();
+
+    //Reset values
+    $('#user-favorite').val('');
+    $('fieldset input:checked').prop('checked', false);
+
+    //Display search
+    $('.search-section').removeClass('hidden');
+    $('.results-section').addClass('hidden');
+
+};
+
+
+//If "Go Back to the search page" is clicked
+$('#go-back').click(goBackToSearch);

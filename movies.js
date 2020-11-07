@@ -52,20 +52,22 @@ function favoriteMovie(userFavorite) {
 
         //Genre
         favGenre = responseFav.Genre;
+        //convert genre ID to 
         console.log(favGenre);
 
-        resultsMovie(title);
-        //add books function (pass genre)
-        //add videogames function (pass genre)
-        //add anime function (pass genre)
+        //URL
+        favImdbURL = "https://www.imdb.com/title/" + responseFav.imdbID;
+        $('#favorite-full-url').attr('href',favImdbURL);
+
+        pickGenreFromMovie(title);
+
     });
 
 };
 
 
-function resultsMovie(title) {
+function pickGenreFromMovie(title) {
     
-
     //Locate genre types
     let getMovieGenreNumURL = 'https://api.themoviedb.org/3/search/movie?query=' + title + '&api_key=d8731638c74bc1c4039ad5e0a50c36af';
 
@@ -79,82 +81,99 @@ function resultsMovie(title) {
         let genreChosen = movieGenres[pickAGenre];
         //console.log(genreChosen);
 
-        //Find Movies with this same genre id
-        let findMovieRecsURL = 'https://api.themoviedb.org/3/discover/movie?with_genres=' + genreChosen + '&api_key=d8731638c74bc1c4039ad5e0a50c36af'
-
-        $.ajax({
-            url: findMovieRecsURL,
-            method: "GET"
-        }).then(function(responseRecommend) {
-            //console.log(responseRecommend);
-            //console.log(this);
-            findAndUpdateMovie()
-
-            function findAndUpdateMovie() {
-
-            let allMovies = responseRecommend.results;
-            let pickAMovie = Math.floor(Math.random() * allMovies.length);
-            //console.log(pickAMovie);
-            let getRandomMovie = allMovies[pickAMovie].title;
-            //console.log(getRandomMovie);
-
-            let movieResult = getRandomMovie.trim().split(' ').join('+');
-
-            let recMovieURL = "http://www.omdbapi.com/?t=" + movieResult + "&apikey=c88e35f9";
-            
-            //Then add movie to html
-            $.ajax({
-                    url: recMovieURL,
-                    method: "GET"
-                }).then(function(responseResult) {
-                    //If not a valid movie title
-                    if(responseResult.Response === "False"){
-                        findAndUpdateMovie();
-                    };
-
-                    //Add to Favorite Box
-                    //console.log(responseResult);
-                    
-                    //Title
-                    let newMovieTitle = responseResult.Title;
-                    $('#movie-title').html(newMovieTitle);
-
-                    //Poster
-                    let newMoviePosterURL = responseResult.Poster;
-                    $('#movie-poster').attr('src', newMoviePosterURL);
-
-                    //Rated
-                    let newMovieRating = responseResult.Rated;
-                    $('#movie-rating').html(`Rated: ${newMovieRating}`);
-                    
-                    //Plot
-                    let newMoviePlot = responseResult.Plot;
-                    $('#movie-plot').html(newMoviePlot);
-
-                    //Score
-                    let newMovieScore = responseResult.imdbRating;
-                    $('#movie-score').html(`imdbRating: ${newMovieScore}`);
-
-
-                });
-            };
-
-        });
-
+        //Call Genre/results
+        resultsMovie(genreChosen);
+       
+        //convert genre from movieGenreArray to allGenreArray
+        //add books function (pass genre)
+        //add videogames function (pass genre)
+        //add anime function (pass genre)
     });    
 
 };
 
 
+function resultsMovie(genreChosen){
+     //Find Movies with this same genre id
+     let findMovieRecsURL = 'https://api.themoviedb.org/3/discover/movie?with_genres=' + genreChosen + '&api_key=d8731638c74bc1c4039ad5e0a50c36af'
+
+     $.ajax({
+         url: findMovieRecsURL,
+         method: "GET"
+     }).then(function(responseRecommend) {
+         //console.log(responseRecommend);
+         //console.log(this);
+         findAndUpdateMovie()
+
+         function findAndUpdateMovie() {
+
+         let allMovies = responseRecommend.results;
+         let pickAMovie = Math.floor(Math.random() * allMovies.length);
+         //console.log(pickAMovie);
+         let getRandomMovie = allMovies[pickAMovie].title;
+         //console.log(getRandomMovie);
+
+         let movieResult = getRandomMovie.trim().split(' ').join('+');
+
+         let recMovieURL = "http://www.omdbapi.com/?t=" + movieResult + "&apikey=c88e35f9";
+         
+         //Then add movie to html
+         $.ajax({
+                 url: recMovieURL,
+                 method: "GET"
+             }).then(function(responseResult) {
+                 //If not a valid movie title
+                 if(responseResult.Response === "False"){
+                     findAndUpdateMovie();
+                 };
+
+                 //Add to Favorite Box
+                 //console.log(responseResult);
+                 
+                 //Title
+                 let newMovieTitle = responseResult.Title;
+                 $('#movie-title').html(newMovieTitle);
+
+                 //Poster
+                 let newMoviePosterURL = responseResult.Poster;
+                 $('#movie-poster').attr('src', newMoviePosterURL);
+
+                 //Rated
+                 let newMovieRating = responseResult.Rated;
+                 $('#movie-rating').html(`Rated: ${newMovieRating}`);
+                 
+                 //Plot
+                 let newMoviePlot = responseResult.Plot;
+                 $('#movie-plot').html(newMoviePlot);
+
+                 //Score
+                 let newMovieScore = responseResult.imdbRating;
+                 $('#movie-score').html(`imdbRating: ${newMovieScore}`);
+
+                 //URL
+                 newImdbURL = "https://www.imdb.com/title/" + responseResult.imdbID;
+                 $('#movie-url').attr('href',newImdbURL);
+                 
+             });
+         };
+
+     });
+
+}
+
+
 //function 
-function movieFromOtherMedia() {
+function movieFromOtherMedia(useGenre) {
     console.log("Test");
 
     //Take the genre from the media that was passed
+    //passedGenre = indexOf(useGenre);
+    //movieGenreArray[passedGenre]
 
     //compare that genre index to my movie genre index
+    
 
-    //grab the specific genre
+    //call resultsMovie(genreChosen)
 
 
 };

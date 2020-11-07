@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Search Away!</title>
     <!--Foundation-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
     <!--Our stylesheet-->
@@ -27,10 +27,10 @@
             <div class="grid-container">
                 <div class="grid-y grid-padding-y">
                     <div class="medium-6 cell">
-                        <label for="favorite-title">
+                        <label for="user-favorite">
                             Enter in the title and select if it is a movie, book, video game, or anime:
                         </label>
-                        <input id="favorite-title" type="text" placeholder="Title of your favorite movie, book, video game, or anime">
+                        <input id="user-favorite" type="text" placeholder="Title of your favorite movie, book, video game, or anime">
                         <fieldset>
                             <input type="radio" name="media" value="movie" id="movie"><label for="movie">Movie</label>
                             <input type="radio" name="media" value="book" id="book"><label for="book">Book</label>
@@ -59,6 +59,7 @@
                             <p id="favorite-rating">Rated:</p>
                             <p id="favorite-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
                             <p id="favorite-score">Score:</p>
+                            <a href="" id="favorite-full-url" target="_blank">See Full Link Here</a>
                         </div>
                     </div>
                 </div>
@@ -79,6 +80,7 @@
                                 <p id="movie-rating">Rated:</p>
                                 <p id="movie-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
                                 <p id="movie-score">Score:</p>
+                                <a href="" id="movie-url" target="_blank">See Full Link Here</a>
                             </div>
                         </div>
                     </div>
@@ -94,6 +96,7 @@
                                 <p id="book-rating">Rated:</p>
                                 <p id="book-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
                                 <p id="book-score">Score:</p>
+                                <a href="" id="book-full-url" target="_blank">See Full Link Here</a>
                             </div>
                         </div>
                     </div>
@@ -109,6 +112,7 @@
                                 <p id="video-game-rating">Rated:</p>
                                 <p id="video-game-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
                                 <p id="video-game-score">Score:</p>
+                                <a href="" id="video-game-full-url" target="_blank">See Full Link Here</a>
                             </div>
                         </div>
                     </div>
@@ -124,6 +128,7 @@
                                 <p id="anime-rating">Rated:</p>
                                 <p id="anime-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
                                 <p id="anime-score">Score:</p>
+                                <a href="" id="anime-full-url" target="_blank">See Full Link Here</a>
                             </div>
                         </div>
                     </div>
@@ -134,7 +139,7 @@
                 <div class="grid-x">
                     <div class="button-group">
                         <a class="button">Save this result!</a>
-                        <a class="button">Go back to the search page!</a>
+                        <a class="button" id="go-back">Go back to the search page!</a>
                     </div>    
                 </div>
             </div>
@@ -157,6 +162,5 @@
     <script src="video_game.js"></script>
     <script src="anime.js"></script>
     <script src="script.js"></script>
-    <script src="results.js"></script>
 </body>
 </html>
