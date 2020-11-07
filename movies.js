@@ -138,6 +138,8 @@ function resultsMovie(genreChosen){
                  
                  //Title
                  let newMovieTitle = responseResult.Title;
+                 //Testing for local storage
+                 results("movie", newMovieTitle);
                  $('#movie-title').html(newMovieTitle);
 
                  //Poster
