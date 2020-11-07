@@ -6,7 +6,7 @@ function searchFavorite(event) {
     event.preventDefault();
 
 
-    userFavorite = $('#favorite-title').val();
+    userFavorite = $('#user-favorite').val();
     console.log(userFavorite);
     
     media = $('fieldset input:checked').val();
@@ -50,7 +50,7 @@ function goBackToSearch(event) {
     event.preventDefault();
 
     //Reset values
-    $('#favorite-title').val('');
+    $('#user-favorite').val('');
     $('fieldset input:checked').prop('checked', false);
 
     //Display search
