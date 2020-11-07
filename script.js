@@ -37,8 +37,28 @@ function searchFavorite(event) {
             //For testing purposes
             $('.search-section').addClass('hidden');
             $('.results-section').removeClass('hidden');
+            //Add error message later
     }
 
 };
 
+//If "Find me recommendations" is clicked
 $('#search').click(searchFavorite);
+
+
+function goBackToSearch(event) {
+    event.preventDefault();
+
+    //Reset values
+    $('#favorite-title').val('');
+    $('fieldset input:checked').prop('checked', false);
+
+    //Display search
+    $('.search-section').removeClass('hidden');
+    $('.results-section').addClass('hidden');
+
+};
+
+
+//If "Go Back to the search page" is clicked
+$('#go-back').click(goBackToSearch);
