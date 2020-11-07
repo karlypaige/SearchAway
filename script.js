@@ -26,7 +26,7 @@ function searchFavorite(event) {
         case 'video-game':
             $('.search-section').addClass('hidden');
             $('.results-section').removeClass('hidden');
-            //function for video-game favorite
+            favoriteVideoGame(userFavorite);
             break; 
         case 'anime':
             $('.search-section').addClass('hidden');
