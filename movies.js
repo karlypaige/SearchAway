@@ -127,6 +127,12 @@ function resultsMovie(genreChosen){
                      findAndUpdateMovie();
                  };
 
+                 //If mature box isn't checked, don't include rated R or TV-MA movies (find new movie otherwise)
+                 if($('#mature').prop('checked') === false){
+                     if(responseResult.Rated === "R" || responseResult.Rated === "TV-MA")
+                     findAndUpdateMovie();
+                 };
+
                  //Add to Favorite Box
                  //console.log(responseResult);
                  
