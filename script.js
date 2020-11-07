@@ -21,7 +21,7 @@ function searchFavorite(event) {
         case 'book':
             $('.search-section').addClass('hidden');
             $('.results-section').removeClass('hidden');
-            //function for book favorite
+            favoriteBook(userFavorite);
             break;
         case 'video-game':
             $('.search-section').addClass('hidden');
