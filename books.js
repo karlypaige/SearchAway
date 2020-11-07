@@ -12,6 +12,9 @@ function favoriteBook(userFavorite) {
         method: "GET"
     }).then(function(books){
         console.log(books);
+        let bookImage = books["items"][0]["volumeInfo"]["imageLinks"]["thumbnail"];
+        $("#book-poster").attr("src", bookImage);
     });
+
 
 };
