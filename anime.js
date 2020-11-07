@@ -39,7 +39,11 @@ function favoriteAnime(userFavorite) {
 
             //Score
             favScore = responseFav.results[0].score;
-            $('#favorite-score').html(`imdbRating: ${favScore}`);
+            $('#favorite-score').html(`MyAnimeList Rating: ${favScore}`);
+
+            //Outbound URL
+            favURL = responseFav.results[0].url;
+            $('#favorite-full-url').attr("href", favURL);            
 
             //Genre
             favGenre = responseFav.results[0].image_url;
