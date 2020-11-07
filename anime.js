@@ -18,36 +18,43 @@ function favoriteAnime(userFavorite) {
             console.log("error");
         };
 
+        $.ajax({
+            url: "https://api.jikan.moe/v3/anime/"+responseFav.results[0].mal_id,
+            method: "GET",
+        }).then(function(response) {
+
             //Add to Favorite Box
             // console.log(responseFav);
 
             //Title
-            favTitle = responseFav.results[0].title;
+            favTitle = response.title;
             $('#favorite-title').html(favTitle);
 
             //Poster
-            favPosterURL = responseFav.results[0].image_url;
+            favPosterURL = response.image_url;
             $('#favorite-poster').attr('src', favPosterURL);
 
             //Rated
-            favRating = responseFav.results[0].rated;
+            favRating = response.rating;
             $('#favorite-rating').html(`Rated: ${favRating}`);
 
             //Plot
-            favPlot = responseFav.results[0].synopsis;
+            favPlot = response.synopsis;
             $('#favorite-plot').html(favPlot);
 
             //Score
-            favScore = responseFav.results[0].score;
+            favScore = response.score;
             $('#favorite-score').html(`MyAnimeList Rating: ${favScore}`);
 
             //Outbound URL
-            favURL = responseFav.results[0].url;
+            favURL = response.url;
             $('#favorite-full-url').attr("href", favURL);            
 
             //Genre
-            favGenre = responseFav.results[0].image_url;
+            favGenre = response.genres;
             console.log(favGenre);
+            });
 
+        
     });
 };
