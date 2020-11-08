@@ -4,7 +4,7 @@ var movieGenreArray = [28,12,16,35,80,99,18,10751,14,36,27,10402,9648,10749,878,
 var allGenreArray = [];
 
 
-function favoriteMovie(userFavorite) {
+function favoriteMovie(userFavorite,newSearch) {
     //omdb is not case-sensitive
     let title = userFavorite.trim().split(' ').join('+');
     let favTitle, favPosterURL, favPlot, favRating, favScore;
@@ -59,7 +59,10 @@ function favoriteMovie(userFavorite) {
         favImdbURL = "https://www.imdb.com/title/" + responseFav.imdbID;
         $('#favorite-full-url').attr('href',favImdbURL);
 
-        pickGenreFromMovie(title);
+        if(newSearch){
+            pickGenreFromMovie(title);
+        };
+
 
     });
 
@@ -188,3 +191,39 @@ function movieFromOtherMedia(useGenre) {
 
 
 //Add outline to media that was chosen
+function displaySavedMovieResult(savedMovie){
+    let movieResult = savedMovie.trim().split(' ').join('+');
+
+    let recMovieURL = "http://www.omdbapi.com/?t=" + movieResult + "&apikey=c88e35f9";
+
+    $.ajax({
+        url: recMovieURL,
+        method: "GET"
+    }).then(function(responseResult) {
+       
+        //Title
+        let newMovieTitle = responseResult.Title;
+        $('#movie-title').html(newMovieTitle);
+
+        //Poster
+        let newMoviePosterURL = responseResult.Poster;
+        $('#movie-poster').attr('src', newMoviePosterURL);
+
+        //Rated
+        let newMovieRating = responseResult.Rated;
+        $('#movie-rating').html(`Rated: ${newMovieRating}`);
+        
+        //Plot
+        let newMoviePlot = responseResult.Plot;
+        $('#movie-plot').html(newMoviePlot);
+
+        //Score
+        let newMovieScore = responseResult.imdbRating;
+        $('#movie-score').html(`imdbRating: ${newMovieScore}`);
+
+        //URL
+        newImdbURL = "https://www.imdb.com/title/" + responseResult.imdbID;
+        $('#movie-url').attr('href',newImdbURL);
+        
+    });
+};
