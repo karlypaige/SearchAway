@@ -1,6 +1,7 @@
 //For the main search page (button + local storage)
 var userFavorite;
 var media;
+var newSearch;
 
 //Local storage testing
 var savedMovieResult = '';
@@ -21,32 +22,34 @@ function searchFavorite(event) {
     
     media = $('fieldset input:checked').val();
 
+    newSearch = true;
 
-    displayFavoriteBox(media,userFavorite);
+    displayFavoriteBox(media,userFavorite,newSearch);
+
 
 };
 
-function displayFavoriteBox(media,favorite){
+function displayFavoriteBox(media,favorite,newSearch){
     switch (media) {
         case 'movie':
             $('.search-section').addClass('hidden');
             $('.results-section').removeClass('hidden');
-            favoriteMovie(favorite);
+            favoriteMovie(favorite,newSearch);
             break;
         case 'book':
             $('.search-section').addClass('hidden');
             $('.results-section').removeClass('hidden');
-            favoriteBook(favorite);
+            favoriteBook(favorite,newSearch);
             break;
         case 'video-game':
             $('.search-section').addClass('hidden');
             $('.results-section').removeClass('hidden');
-            favoriteVideoGame(favorite);
+            favoriteVideoGame(favorite,newSearch);
             break; 
         case 'anime':
             $('.search-section').addClass('hidden');
             $('.results-section').removeClass('hidden');
-            favoriteAnime(favorite);
+            favoriteAnime(favorite,newSearch);
             break; 
         default:
             //For testing purposes
@@ -205,16 +208,17 @@ function displaySavedResult(event) {
         };
     };
 
-
     //Call functions based on variables
     //Favorite
+    //Don't let it search for a new result
+    newSearch = false;
     displayFavoriteBox(savedMedia,savedTitle);
 
     //Add functions for the other results
-    displaySavedMovieResult();
-    //displaySavedBookResult();
-    //displaySavedVideoGameResult();
-    //displaySavedAnimeResult();
+    displaySavedMovieResult(savedMovie);
+    //displaySavedBookResult(savedBook);
+    //displaySavedVideoGameResult(savedVideoGame);
+    //displaySavedAnimeResult(savedAnime);
 
 };
 
