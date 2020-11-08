@@ -16,32 +16,37 @@ function searchFavorite(event) {
 
 
     userFavorite = $('#user-favorite').val();
-    //For local storage
+    //For local storage later
     checkUserFavorite = userFavorite;
     
     media = $('fieldset input:checked').val();
 
 
+    displayFavoriteBox(media,userFavorite);
+
+};
+
+function displayFavoriteBox(media,favorite){
     switch (media) {
         case 'movie':
             $('.search-section').addClass('hidden');
             $('.results-section').removeClass('hidden');
-            favoriteMovie(userFavorite);
+            favoriteMovie(favorite);
             break;
         case 'book':
             $('.search-section').addClass('hidden');
             $('.results-section').removeClass('hidden');
-            favoriteBook(userFavorite);
+            favoriteBook(favorite);
             break;
         case 'video-game':
             $('.search-section').addClass('hidden');
             $('.results-section').removeClass('hidden');
-            favoriteVideoGame(userFavorite);
+            favoriteVideoGame(favorite);
             break; 
         case 'anime':
             $('.search-section').addClass('hidden');
             $('.results-section').removeClass('hidden');
-            favoriteAnime(userFavorite);
+            favoriteAnime(favorite);
             break; 
         default:
             //For testing purposes
@@ -72,7 +77,7 @@ function goBackToSearch(event) {
     $('#save-result').attr('disabled', false);
 
     //Display new saved results
-    displaySavedResults();
+    displaySavedButtons();
 };
 
 
@@ -141,7 +146,7 @@ function saveResult(event) {
     $('#save-result').attr('disabled', true);
 }
 
-function displaySavedResults(){
+function displaySavedButtons(){
     $('#saved-buttons').empty();
     
     let savedHistory = JSON.parse(localStorage.getItem("allSavedTitles"));
@@ -164,17 +169,61 @@ function displaySavedResults(){
 
 };
 
-displaySavedResults();
+displaySavedButtons();
 
 //If "Save this result" is clicked
 $('#save-result').click(saveResult);
 
 
+function displaySavedResult(event) {
+
+    //variables for saved results
+    let savedTitle, savedMedia, savedMovie, savedBook, savedVideoGame, savedAnime;
+
+
+    //must be a button
+    if($(event.target).attr('class') !== 'button saved-result'){
+        return;
+    };
+
+    //if button is clicked, save ID
+    let savedButtonClicked = '';
+    savedButtonClicked = event.target.id;
+    console.log(savedButtonClicked);
+
+    //Pull items from local storage
+    let savedHistory = JSON.parse(localStorage.getItem("allSavedTitles"));
+
+    for(i = 0; i < savedHistory.length; i++){
+        if(savedHistory[i].button === savedButtonClicked){
+            savedTitle = savedHistory[i].title;
+            savedMedia = savedHistory[i].media;
+            savedMovie = savedHistory[i].movie;
+            //savedBook = savedHistory[i].book;
+            //savedVideoGame = savedHistory[i].videoGame;
+            //savedAnime = savedHistory[i].anime;
+        };
+    };
+
+
+    //Call functions based on variables
+    //Favorite
+    displayFavoriteBox(savedMedia,savedTitle);
+
+    //Add functions for the other results
+    displaySavedMovieResult();
+    //displaySavedBookResult();
+    //displaySavedVideoGameResult();
+    //displaySavedAnimeResult();
+
+};
+
 //If a saved title button is clicked:
+$('#saved-buttons').click(displaySavedResult);
+
 //getItems from local storage
 //media will say which shows in favorite
 //rest will be for results
 //calls each media api to display results
 
-//$('.search-section').addClass('hidden');
-//$('.results-section').removeClass('hidden');
+
