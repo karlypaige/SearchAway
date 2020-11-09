@@ -12,8 +12,17 @@ function favoriteBook(userFavorite) {
         method: "GET"
     }).then(function(books){
         console.log(books);
-        let bookImage = books["items"][0]["volumeInfo"]["imageLinks"]["thumbnail"];
-        $("#book-poster").attr("src", bookImage);
+        //diplay chosen book
+        
+        let book = books.items[0].volumeInfo
+        console.log(book);
+        $("#favorite-title").text(book.title);
+        $("#favorite-poster").attr("src", book.imageLinks.thumbnail);
+        $("#favorite-rating").text(book.categories[0] + " (" + book.maturityRating + ")");
+        $("#favorite-plot").text(book.description);
+        $("#favorite-full-url").attr("href", book.canonicalVolumeLink);
+
+        console.log(book.canonicalVolumeLink);
     });
 
 
