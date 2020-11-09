@@ -78,6 +78,10 @@ function goBackToSearch(event) {
     $('#save-result').prop('disabled', false);
     $('#save-result').attr('disabled', false);
 
+    //Remove error message, if displayed
+    $('#title-error').addClass('hidden');
+    $('#title-error').removeClass('hidden');
+
     //Display new saved results
     displaySavedButtons();
 };
@@ -158,6 +162,10 @@ function displaySavedButtons(){
     //Empties the saved searches section
     $('#saved-buttons').empty();
     
+    //Disable save button so duplicate button doesn't generate
+    $('#save-result').prop('disabled', true);
+    $('#save-result').attr('disabled', true);
+
     //Get objects from local storage
     let savedHistory = JSON.parse(localStorage.getItem("allSavedTitles"));
     //if nothing in localStorage, then keep saved searches hidden
