@@ -1,181 +1,179 @@
-//test title var
-//let searchValue = "Moana";
+//Genre arrays
 var movieGenreArray = [28,12,16,35,80,99,18,10751,14,36,27,10402,9648,10749,878,10770,53,10752,37];
 var allGenreArray = [];
 
 
+//This will run to display the movie in the favorite section
 function favoriteMovie(userFavorite,newSearch) {
-    //omdb is not case-sensitive
+    //omdb is not case sensitive; just trim and replace spaces with pluses
     let title = userFavorite.trim().split(' ').join('+');
+
+    //Variables for the contents
     let favTitle, favPosterURL, favPlot, favRating, favScore;
-    //movie score = imdbRating
 
-    //API Key
-    let movieURL = "http://www.omdbapi.com/?t=" + title + "&apikey=c88e35f9";
+    //API Key for omdb
+    let movieURL = 'https://www.omdbapi.com/?t=' + title + '&apikey=c88e35f9';
 
+    //Call API for movie data (title, poster, plot, rating, score)
     $.ajax({
         url: movieURL,
-        method: "GET",
+        method: 'GET',
         error: function() {
-            //console.log("error");
+            console.log("error with api call")
             return;
         }
     }).then(function(responseFav) {
 
-        //If not a valid movie title
-        if(responseFav.Response === "False"){
-            //console.log("error");
+        //If not a valid movie title, display the error message
+        if(responseFav.Response === 'False'){
+            $('.search-section').removeClass('hidden');
+            $('.results-section').addClass('hidden');
+            $('#title-error').removeClass('hidden');
+            return;
         };
 
-        //Add to Favorite Box
-        //console.log(responseFav);
-        
+        //Add to Favorite section       
         //Title
         favTitle = responseFav.Title;
         $('#favorite-title').html(favTitle);
-
         //Poster
         favPosterURL = responseFav.Poster;
         $('#favorite-poster').attr('src', favPosterURL);
-
         //Rated
         favRating = responseFav.Rated;
         $('#favorite-rating').html(`Rated: ${favRating}`);
-        
         //Plot
         favPlot = responseFav.Plot;
         $('#favorite-plot').html(favPlot);
-
-        //Score
+        //Score (movie score = imdbRating)
         favScore = responseFav.imdbRating;
         $('#favorite-score').html(`imdbRating: ${favScore}`);
-
-        //Genre
-        favGenre = responseFav.Genre;
-        //convert genre ID to 
-        console.log(favGenre);
-
         //URL
         favImdbURL = "https://www.imdb.com/title/" + responseFav.imdbID;
         $('#favorite-full-url').attr('href',favImdbURL);
 
+        //If a new search, find a result (if not a new search, will want to display saved result from local storage- separate function)
         if(newSearch){
             pickGenreFromMovie(title);
         };
-
-
     });
-
 };
 
 
+//This is to pick a genre so that a new movie result can be selected into the movie result section
 function pickGenreFromMovie(title) {
     
-    //Locate genre types
+    //themoviedb API to pick a genre
     let getMovieGenreNumURL = 'https://api.themoviedb.org/3/search/movie?query=' + title + '&api_key=d8731638c74bc1c4039ad5e0a50c36af';
 
     $.ajax({
         url: getMovieGenreNumURL,
-        method: "GET"
+        method: "GET",
+        error: function() {
+            console.log("error with api call")
+            return;
+        }
     }).then(function(responseGenre) {
-        //console.log(responseGenre.results[0].genre_ids);
+
+        //Take all genres from the movie, and pick one to use
         let movieGenres = responseGenre.results[0].genre_ids;
+        findMovie(movieGenres);
+
+        /*Picks one genre to pass
         let pickAGenre = Math.floor(Math.random() * movieGenres.length);
         let genreChosen = movieGenres[pickAGenre];
-        //console.log(genreChosen);
-
-        //Call Genre/results
-        resultsMovie(genreChosen);
+        */
        
-        //convert genre from movieGenreArray to allGenreArray
+        //!!!!!!!!TO-DO: Convert genre from movieGenreArray to allGenreArray!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        //Pass genre to other medias
         //add books function (pass genre)
         //add videogames function (pass genre)
         //add anime function (pass genre)
     });    
-
 };
 
 
-function resultsMovie(genreChosen){
-     //Find Movies with this same genre id
-     let findMovieRecsURL = 'https://api.themoviedb.org/3/discover/movie?with_genres=' + genreChosen + '&api_key=d8731638c74bc1c4039ad5e0a50c36af'
+//This will have a new movie generated to be displayed
+function findMovie(genreChosen){
+    //Find Movies with this same genre id
+    let findMovieRecsURL = 'https://api.themoviedb.org/3/discover/movie?with_genres=' + genreChosen + '&api_key=d8731638c74bc1c4039ad5e0a50c36af'
 
-     $.ajax({
+    $.ajax({
          url: findMovieRecsURL,
          method: "GET"
-     }).then(function(responseRecommend) {
-         //console.log(responseRecommend);
-         //console.log(this);
-         findAndUpdateMovie()
+    }).then(function(responseRecommend) {
+        
+         //This will call the following function to pick a movie from the results returned
+        findAndUpdateMovie();
 
-         function findAndUpdateMovie() {
+        function findAndUpdateMovie() {
 
-         let allMovies = responseRecommend.results;
-         let pickAMovie = Math.floor(Math.random() * allMovies.length);
-         //console.log(pickAMovie);
-         let getRandomMovie = allMovies[pickAMovie].title;
-         //console.log(getRandomMovie);
+            //Picks a movie result
+            let allMovies = responseRecommend.results;
+            let pickAMovie = Math.floor(Math.random() * allMovies.length);
+            let getRandomMovie = allMovies[pickAMovie].title;
 
-         let movieResult = getRandomMovie.trim().split(' ').join('+');
+            //Uses the movie result to pull movie data from omdb
+            let movieResult = getRandomMovie.trim().split(' ').join('+');
+            let recMovieURL = "https://www.omdbapi.com/?t=" + movieResult + "&apikey=c88e35f9";
+            
+            $.ajax({
+                    url: recMovieURL,
+                    method: "GET"
+            }).then(function(responseNew) {
+                //If the movie title does not appear to be valid, pick a different movie result
+                if(responseNew.Response === "False"){
+                    findAndUpdateMovie();
+                };
 
-         let recMovieURL = "http://www.omdbapi.com/?t=" + movieResult + "&apikey=c88e35f9";
-         
-         //Then add movie to html
-         $.ajax({
-                 url: recMovieURL,
-                 method: "GET"
-             }).then(function(responseResult) {
-                 //If not a valid movie title
-                 if(responseResult.Response === "False"){
-                     findAndUpdateMovie();
-                 };
+                //If mature box isn't checked, don't include rated R or TV-MA movies (find new movie otherwise)
+                if($('#mature').prop('checked') === false){
+                    if(responseNew.Rated === "R" || responseNew.Rated === "TV-MA")
+                    findAndUpdateMovie();
+                };
 
-                 //If mature box isn't checked, don't include rated R or TV-MA movies (find new movie otherwise)
-                 if($('#mature').prop('checked') === false){
-                     if(responseResult.Rated === "R" || responseResult.Rated === "TV-MA")
-                     findAndUpdateMovie();
-                 };
-
-                 //Add to Favorite Box
-                 //console.log(responseResult);
-                 
-                 //Title
-                 let newMovieTitle = responseResult.Title;
-                 //Testing for local storage
-                 results("movie", newMovieTitle);
-                 $('#movie-title').html(newMovieTitle);
-
-                 //Poster
-                 let newMoviePosterURL = responseResult.Poster;
-                 $('#movie-poster').attr('src', newMoviePosterURL);
-
-                 //Rated
-                 let newMovieRating = responseResult.Rated;
-                 $('#movie-rating').html(`Rated: ${newMovieRating}`);
-                 
-                 //Plot
-                 let newMoviePlot = responseResult.Plot;
-                 $('#movie-plot').html(newMoviePlot);
-
-                 //Score
-                 let newMovieScore = responseResult.imdbRating;
-                 $('#movie-score').html(`imdbRating: ${newMovieScore}`);
-
-                 //URL
-                 newImdbURL = "https://www.imdb.com/title/" + responseResult.imdbID;
-                 $('#movie-url').attr('href',newImdbURL);
-                 
-             });
-         };
-
-     });
-
-}
+                //Calls function to display the result
+                movieResultSection(responseNew);
+            });
+        };
+    });
+};
 
 
-//function 
+//This will finally display the data from the movie in the results section
+function movieResultSection(response) {
+    //Title
+    let newMovieTitle = response.Title;
+    $('#movie-title').html(newMovieTitle);
+    
+    //Pass this title in case it needs to be saved to local storage
+    results("movie", newMovieTitle);
+
+    //Poster
+    let newMoviePosterURL = response.Poster;
+    $('#movie-poster').attr('src', newMoviePosterURL);
+
+    //Rated
+    let newMovieRating = response.Rated;
+    $('#movie-rating').html(`Rated: ${newMovieRating}`);
+    
+    //Plot
+    let newMoviePlot = response.Plot;
+    $('#movie-plot').html(newMoviePlot);
+
+    //Score
+    let newMovieScore = response.imdbRating;
+    $('#movie-score').html(`imdbRating: ${newMovieScore}`);
+
+    //URL
+    newImdbURL = "https://www.imdb.com/title/" + response.imdbID;
+    $('#movie-url').attr('href',newImdbURL);
+};
+
+
+//TO-DO!!!!! This will take the genre passed from one media so that a movie result may be displayed  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function movieFromOtherMedia(useGenre) {
-    console.log("Test");
 
     //Take the genre from the media that was passed
     //passedGenre = indexOf(useGenre);
@@ -184,46 +182,23 @@ function movieFromOtherMedia(useGenre) {
     //compare that genre index to my movie genre index
     
 
-    //call resultsMovie(genreChosen)
-
+    //call findMovie(genreChosen)
 
 };
 
 
-//Add outline to media that was chosen
+//This will display the movie result that was saved to a button from local storage
 function displaySavedMovieResult(savedMovie){
-    let movieResult = savedMovie.trim().split(' ').join('+');
 
-    let recMovieURL = "http://www.omdbapi.com/?t=" + movieResult + "&apikey=c88e35f9";
+    let movieResult = savedMovie.trim().split(' ').join('+');
+    let recMovieURL = "https://www.omdbapi.com/?t=" + movieResult + "&apikey=c88e35f9";
 
     $.ajax({
         url: recMovieURL,
         method: "GET"
     }).then(function(responseResult) {
-       
-        //Title
-        let newMovieTitle = responseResult.Title;
-        $('#movie-title').html(newMovieTitle);
-
-        //Poster
-        let newMoviePosterURL = responseResult.Poster;
-        $('#movie-poster').attr('src', newMoviePosterURL);
-
-        //Rated
-        let newMovieRating = responseResult.Rated;
-        $('#movie-rating').html(`Rated: ${newMovieRating}`);
-        
-        //Plot
-        let newMoviePlot = responseResult.Plot;
-        $('#movie-plot').html(newMoviePlot);
-
-        //Score
-        let newMovieScore = responseResult.imdbRating;
-        $('#movie-score').html(`imdbRating: ${newMovieScore}`);
-
-        //URL
-        newImdbURL = "https://www.imdb.com/title/" + responseResult.imdbID;
-        $('#movie-url').attr('href',newImdbURL);
+        //Call function to display the results
+        movieResultSection(responseResult);
         
     });
 };

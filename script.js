@@ -78,6 +78,9 @@ function goBackToSearch(event) {
     $('#save-result').prop('disabled', false);
     $('#save-result').attr('disabled', false);
 
+    //Remove error message, if displayed
+    $('#title-error').addClass('hidden');
+
     //Display new saved results
     displaySavedButtons();
 };
@@ -157,7 +160,7 @@ function saveResult() {
 function displaySavedButtons(){
     //Empties the saved searches section
     $('#saved-buttons').empty();
-    
+
     //Get objects from local storage
     let savedHistory = JSON.parse(localStorage.getItem("allSavedTitles"));
     //if nothing in localStorage, then keep saved searches hidden
@@ -190,6 +193,10 @@ function displaySavedResult(event) {
     if($(event.target).attr('class') !== 'button saved-result'){
         return;
     };
+
+    //Disable save button so duplicate button doesn't generate
+    $('#save-result').prop('disabled', true);
+    $('#save-result').attr('disabled', true);
 
     //If a button is clicked, store the ID of that button
     let savedButtonClicked = '';
