@@ -1,0 +1,31 @@
+.hidden {
+    display: none;
+}
+
+#favorite-data {
+    background-color: plum;
+}
+
+#movie-result {
+    background-color: aquamarine;
+}
+
+#book-result {
+    background-color: lightskyblue;
+}
+
+#video-game-result {
+    background-color: lightsalmon;
+}
+
+#anime-result {
+    background-color: goldenrod;
+}
+
+/*Testing saved history*/
+.saved-history {
+    background-color: wheat;
+}
+.saved-result {
+    margin: 5px;
+}
