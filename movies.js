@@ -11,7 +11,7 @@ function favoriteMovie(userFavorite,newSearch) {
     //movie score = imdbRating
 
     //API Key
-    let movieURL = "http://www.omdbapi.com/?t=" + title + "&apikey=c88e35f9";
+    let movieURL = "https://www.omdbapi.com/?t=" + title + "&apikey=c88e35f9";
 
     $.ajax({
         url: movieURL,
@@ -118,7 +118,7 @@ function resultsMovie(genreChosen){
 
          let movieResult = getRandomMovie.trim().split(' ').join('+');
 
-         let recMovieURL = "http://www.omdbapi.com/?t=" + movieResult + "&apikey=c88e35f9";
+         let recMovieURL = "https://www.omdbapi.com/?t=" + movieResult + "&apikey=c88e35f9";
          
          //Then add movie to html
          $.ajax({
@@ -194,7 +194,7 @@ function movieFromOtherMedia(useGenre) {
 function displaySavedMovieResult(savedMovie){
     let movieResult = savedMovie.trim().split(' ').join('+');
 
-    let recMovieURL = "http://www.omdbapi.com/?t=" + movieResult + "&apikey=c88e35f9";
+    let recMovieURL = "https://www.omdbapi.com/?t=" + movieResult + "&apikey=c88e35f9";
 
     $.ajax({
         url: recMovieURL,
