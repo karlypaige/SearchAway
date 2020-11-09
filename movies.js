@@ -29,7 +29,6 @@ function favoriteMovie(userFavorite,newSearch) {
             $('.search-section').removeClass('hidden');
             $('.results-section').addClass('hidden');
             $('#title-error').removeClass('hidden');
-            $('#title-error').adddClass('hidden');
             return;
         };
 
@@ -75,14 +74,15 @@ function pickGenreFromMovie(title) {
             return;
         }
     }).then(function(responseGenre) {
+
         //Take all genres from the movie, and pick one to use
         let movieGenres = responseGenre.results[0].genre_ids;
+        findMovie(movieGenres);
+
+        /*Picks one genre to pass
         let pickAGenre = Math.floor(Math.random() * movieGenres.length);
         let genreChosen = movieGenres[pickAGenre];
-
-        //Passes genre to function that generates new movie
-        findMovie(genreChosen);
-
+        */
        
         //!!!!!!!!TO-DO: Convert genre from movieGenreArray to allGenreArray!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
