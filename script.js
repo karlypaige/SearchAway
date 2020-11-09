@@ -160,10 +160,6 @@ function saveResult() {
 function displaySavedButtons(){
     //Empties the saved searches section
     $('#saved-buttons').empty();
-    
-    //Disable save button so duplicate button doesn't generate
-    $('#save-result').prop('disabled', true);
-    $('#save-result').attr('disabled', true);
 
     //Get objects from local storage
     let savedHistory = JSON.parse(localStorage.getItem("allSavedTitles"));
@@ -197,6 +193,10 @@ function displaySavedResult(event) {
     if($(event.target).attr('class') !== 'button saved-result'){
         return;
     };
+
+    //Disable save button so duplicate button doesn't generate
+    $('#save-result').prop('disabled', true);
+    $('#save-result').attr('disabled', true);
 
     //If a button is clicked, store the ID of that button
     let savedButtonClicked = '';
