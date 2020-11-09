@@ -80,7 +80,6 @@ function goBackToSearch(event) {
 
     //Remove error message, if displayed
     $('#title-error').addClass('hidden');
-    $('#title-error').removeClass('hidden');
 
     //Display new saved results
     displaySavedButtons();
