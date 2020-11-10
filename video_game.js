@@ -55,24 +55,24 @@ function genreChooser(title) {
         for (i = 0; i < responseGenre.genres.length; i++) {
             videoGameGenres.push(responseGenre.genres[i].slug);
         }
-        console.log('genres: ' + videoGameGenres);
+        // console.log('genres: ' + videoGameGenres);
 
         // Tags of this title
         let videoGameTags = [];
         for (i = 0; i < responseGenre.tags.length; i++) {
             videoGameTags.push(responseGenre.tags[i].slug);
         }
-        console.log('tags: ' + videoGameTags);
+        // console.log('tags: ' + videoGameTags);
 
         // Merges both genre and tag arrays into one
         let merged = $.merge(videoGameGenres, videoGameTags);
-        console.log(merged);
+        // console.log(merged);
 
         // Master genre array
         let allGenreArray = ['action','adventure','comedy','crime','drama','family','fantasy','history','horror','mystery','romance','science-fiction','thriller','war','western'];
         let accepted = [];
-        console.log('allgenre: ' +allGenreArray);
-        console.log('merged: ' +merged);
+        // console.log('allgenre: ' +allGenreArray);
+        // console.log('merged: ' +merged);
 
         for (i = 0; i < merged.length; i++) {
             var found = $.inArray(merged[i], allGenreArray);
@@ -80,11 +80,11 @@ function genreChooser(title) {
                 accepted.push(merged[i]);
             }
         }
-        console.log('accepted: ' + accepted);
+        // console.log('accepted: ' + accepted);
         // Pick 1 genre for video game results array
         let pickAGenre = Math.floor(Math.random() * videoGameGenres.length);
         let genreChosen = merged[pickAGenre];
-        console.log('Chosen video game genre: ' + genreChosen);
+        // console.log('Chosen video game genre: ' + genreChosen);
 
         // Pick 1 genre to pass to other media
         let pickAGenre2 = Math.floor(Math.random() * accepted.length);
@@ -135,7 +135,7 @@ function resultsVideoGame(genreChosen) {
         var title = response.results[pickTitle].slug;
 
         var titleURL = 'https://api.rawg.io/api/games/' + title + '?key=' + apiKey;
-        console.log('Recommended video game url ' + titleURL);
+        // console.log('Recommended video game url ' + titleURL);
         $.ajax({
             url: titleURL,
             method: 'GET'
