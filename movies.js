@@ -1,6 +1,6 @@
 //Genre arrays
-var movieGenreArray = [28,12,16,35,80,99,18,10751,14,36,27,10402,9648,10749,878,10770,53,10752,37];
-var allGenreArray = [];
+let movieGenreArray = [28,12,35,80,18,10751,14,36,27,10402,9648,10749,878,53,10752,37];
+
 
 
 //This will run to display the movie in the favorite section
@@ -79,17 +79,28 @@ function pickGenreFromMovie(title) {
         let movieGenres = responseGenre.results[0].genre_ids;
         findMovie(movieGenres);
 
-        /*Picks one genre to pass
+        //Picks one genre to pass
         let pickAGenre = Math.floor(Math.random() * movieGenres.length);
-        let genreChosen = movieGenres[pickAGenre];
-        */
+        let genreChosen = movieGenreArray.indexOf(movieGenres[pickAGenre]);
+
+        //If the genre is not in the 
+        while(genreChosen === -1){
+            pickAGenre = Math.floor(Math.random() * movieGenres.length);
+            genreChosen = movieGenreArray.indexOf(movieGenres[pickAGenre]);
+        };
+
+        let genrePass = allGenreArray[genreChosen];
+
+
+        //for loop if multiple
+        //if statement
        
-        //!!!!!!!!TO-DO: Convert genre from movieGenreArray to allGenreArray!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         //Pass genre to other medias
         //add books function (pass genre)
         //add videogames function (pass genre)
         //add anime function (pass genre)
+
     });    
 };
 
@@ -172,18 +183,17 @@ function movieResultSection(response) {
 };
 
 
-//TO-DO!!!!! This will take the genre passed from one media so that a movie result may be displayed  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//This will take the genre passed from one media so that a movie result may be displayed  
 function movieFromOtherMedia(useGenre) {
 
     //Take the genre from the media that was passed
-    //passedGenre = indexOf(useGenre);
-    //movieGenreArray[passedGenre]
+    let passedGenre = allGenreArray.indexOf(useGenre);
 
-    //compare that genre index to my movie genre index
-    
+    //Compare that genre index to my movie genre index
+    let newGenre = movieGenreArray[passedGenre];
 
-    //call findMovie(genreChosen)
-
+    //Find movie
+    findMovie(newGenre);
 };
 
 
