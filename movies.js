@@ -46,7 +46,7 @@ function favoriteMovie(userFavorite,newSearch) {
         $('#favorite-plot').html(favPlot);
         //Score (movie score = imdbRating)
         favScore = responseFav.imdbRating;
-        $('#favorite-score').html(`imdbRating: ${favScore}`);
+        $('#favorite-score').html(`imdbRating: ${favScore} / 10`);
         //URL
         favImdbURL = "https://www.imdb.com/title/" + responseFav.imdbID;
         $('#favorite-full-url').attr('href',favImdbURL);
@@ -97,21 +97,18 @@ function pickGenreFromMovie(title) {
         //Picks one genre to pass
         let pickAGenre = Math.floor(Math.random() * movieGenres.length);
         let genreChosen = movieGenreArray.indexOf(movieGenres[pickAGenre]);       
-        console.log(genreChosen);
-
-
         let genrePass = allGenreArray[genreChosen];
 
-
         //for loop if multiple
-        //if statement
-       
+        //if statement       
 
         //Pass genre to other medias
+        //book
         //add books function (pass genre)
         //video games
         videoGameFromOther(genrePass);
-        //add anime function (pass genre)
+        //anime
+        genreConvertID(genrePass);
 
     });    
 };
@@ -187,7 +184,7 @@ function movieResultSection(response) {
 
     //Score
     let newMovieScore = response.imdbRating;
-    $('#movie-score').html(`imdbRating: ${newMovieScore}`);
+    $('#movie-score').html(`imdbRating: ${newMovieScore} / 10`);
 
     //URL
     newImdbURL = "https://www.imdb.com/title/" + response.imdbID;
