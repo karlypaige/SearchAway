@@ -1,3 +1,5 @@
+$(document).foundation()
+
 //Variables for user's pick
 let userFavorite; 
 let media;
@@ -21,15 +23,19 @@ function searchFavorite(event) {
     event.preventDefault();
 
     //Stores user's title and media type from text input and radio buttons
-    userFavorite = $('#user-favorite').val();
-    media = $('fieldset input:checked').val();
-    //Confirms to search for a new result
-    newSearch = true;
-    //To use for local storage (saveResult function)
-    checkUserFavorite = userFavorite;
-    
-    //Call function to display data into the favorite box
-    displayFavoriteBox(media,userFavorite,newSearch);
+    userFavorite = $('#user-favorite').val().trim();
+    if($("#user-favorite").val()===""){
+        $("#search-error-modal").foundation('open');
+    } else{
+        media = $('fieldset input:checked').val();
+        //Confirms to search for a new result
+        newSearch = true;
+        //To use for local storage (saveResult function)
+        checkUserFavorite = userFavorite;
+        
+        //Call function to display data into the favorite box
+        displayFavoriteBox(media,userFavorite,newSearch);
+    };
 };
 
 
@@ -55,12 +61,10 @@ function displayFavoriteBox(mediatype,favorite,newSearchTrue){
             $('.search-section').addClass('hidden');
             $('.results-section').removeClass('hidden');
             favoriteAnime(favorite,newSearchTrue);
-            break; 
+            break;
         default:
-            //For testing purposes
-            $('.search-section').addClass('hidden');
-            $('.results-section').removeClass('hidden');
-            //Add error message later
+            $("#media-error-modal").foundation('open');
+            break;
     };
 };
 
