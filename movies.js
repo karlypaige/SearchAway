@@ -77,22 +77,20 @@ function pickGenreFromMovie(title) {
         //Take all genres from the movie, and pick one to use
         let movieGenres = responseGenre.results[0].genre_ids;
         findMovie(movieGenres);
-
         //Change any genres that aren't in the arrays to a genre that is in the array
-        switch(movieGenres[0]) {
-            case 99:
-            case 10770:
-            case 10402:
-                if(!movieGenres[1]){
-                    movieGenres[0] = 18;
-                };
-                break;
-            case 16:
-                if(!movieGenres[1]){
-                    movieGenres[0] = 8;
-                };
-                break;
+        for(i = 0; i < movieGenres.length; i++){
+            switch(movieGenres[i]) {
+                case 99:
+                case 10770:
+                case 10402:
+                        movieGenres[i] = 18;
+                    break;
+                case 16:
+                        movieGenres[i] = 14;
+                    break;
+            };
         };
+
 
         //Picks one genre to pass
         let pickAGenre = Math.floor(Math.random() * movieGenres.length);
