@@ -2,8 +2,9 @@
 // Searched title
 var otherMediaFlag = false;
 var favoriteFlag = false;
+var maturityFlag = false;
 function favoriteVideoGame(userFavorite, newSearch) {
-    let title = userFavorite.trim().split(' ').join('+');
+    let title = userFavorite.trim().split(' ').join('-').replace(':', '');
 
     var apiKey = '2838144f3f40444caa2964cbb3316b1f';
     var gamesURL = 'https://api.rawg.io/api/games/' + title + '?key=' + apiKey;
@@ -50,6 +51,11 @@ function genreChooser(title) {
         method: "GET"
     }).then(function (responseGenre) {
 
+        // If title is rated mature flag it
+        if (responseGenre.esrb_rating.slug == "mature") {
+
+        }
+
         // Genres of this title
         let videoGameGenres = [];
         for (i = 0; i < responseGenre.genres.length; i++) {
@@ -93,6 +99,7 @@ function genreChooser(title) {
         // Call recommended video game to results
         resultsVideoGame(genreChosen);
         movieFromOtherMedia(genrePassed);
+        genreConvertID(genrePassed);
     });
 
 };
@@ -144,7 +151,7 @@ function resultsVideoGame(genreChosen) {
             $('#video-game-poster').attr('src', response.background_image).attr('alt', 'poster');
             $('#video-game-rating').text('Rated: ' + response.esrb_rating.name);
             $('#video-game-plot').text(response.description_raw);
-            $('#video-game-score').text('Score: ' + response.rating);
+            $('#video-game-score').text('Score: ' + response.rating + '/5');
             $('#video-game-full-url').attr('href', response.website);
         })
     })
