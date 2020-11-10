@@ -6,6 +6,7 @@
     <title>Search Away!</title>
     <!--Foundation-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/motion-ui@1.2.3/dist/motion-ui.min.css" />
     <!--Our stylesheet-->
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -42,7 +43,7 @@
                     </div>
                 </div>
                 <fieldset class="cell large-6">
-                    <button class="button" id="search" type="submit" value="Submit">Find me recommendations!</button>
+                    <button class="button" id="search" type="submit" value="Submit" data-open="error-modal">Find me recommendations!</button>
                 </fieldset>
             </div>
             <!--Saved Searches-->
@@ -153,6 +154,22 @@
                     </div>    
                 </div>
             </div>
+        </div>
+
+        <div class="reveal" id="search-error-modal" data-reveal data-animation-in="fade-in" data-animation-out="fade-out" data-close-on-click="true">
+            <h1>Woah, there!</h1>
+            <p class='lead'>The search field is either empty or is invalid, please make sure it is completely filled out.</p>
+            <button class="close-button" data-close aria-label="Close reveal" type="button">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="reveal" id="media-error-modal" data-reveal data-animation-in="fade-in" data-animation-out="fade-out" data-close-on-click="true">
+            <h1>Hey there!</h1>
+            <p class='lead'>A media type has not been selected yet. Please choose a media type using the radio buttons underneath the search bar.</p>
+            <button class="close-button" data-close aria-label="Close reveal" type="button">
+              <span aria-hidden="true">&times;</span>
+            </button>
         </div>
 
     </main>
