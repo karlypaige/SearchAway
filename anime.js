@@ -44,7 +44,7 @@ function favoriteAnime(userFavorite) {
 
             //Score
             favScore = response.score;
-            $('#favorite-score').html(`MyAnimeList Rating: ${favScore}`);
+            $('#favorite-score').html(`MyAnimeList Rating: ${favScore}/10`);
 
             //Outbound URL
             favURL = response.url;
@@ -205,9 +205,16 @@ function pickGenreFromAnime(animeGenreArray) {
     };
     // console.log ("switch first"+genreConvert);            
     genreConvertID(genreConvert);
+    videoGameFromOther(allGenreArray[genreConvert]);
+    movieFromOtherMedia(allGenreArray[genreConvert]);
 };
 
+
 function genreConvertID(genreConvert){
+    if (isNaN(genreConvert)===true){
+        genreConvert = allGenreArray.indexOf(genreConvert);
+        // console.log(genreConvert);
+    }
     if (genreConvert !== NaN){
         var genreID
         switch (genreConvert){
@@ -303,7 +310,7 @@ function fillAnimeSlot(response){
 
     //Score
     animeScore = response.score;
-    $('#anime-score').html(`MyAnimeListRating: ${animeScore}`);
+    $('#anime-score').html(`MyAnimeListRating: ${animeScore}/10`);
 
     //Outbound URL
     animeURL = response.url;
