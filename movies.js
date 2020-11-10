@@ -1,6 +1,5 @@
 //Genre arrays
-let movieGenreArray = [28,12,35,80,18,10751,14,36,27,10402,9648,10749,878,53,10752,37];
-
+let movieGenreArray = [28,12,35,80,18,10751,14,36,27,9648,10749,878,53,10752,37];
 
 
 //This will run to display the movie in the favorite section
@@ -79,15 +78,27 @@ function pickGenreFromMovie(title) {
         let movieGenres = responseGenre.results[0].genre_ids;
         findMovie(movieGenres);
 
+        //Change any genres that aren't in the arrays to a genre that is in the array
+        switch(movieGenres[0]) {
+            case 99:
+            case 10770:
+            case 10402:
+                if(!movieGenres[1]){
+                    movieGenres[0] = 18;
+                };
+                break;
+            case 16:
+                if(!movieGenres[1]){
+                    movieGenres[0] = 8;
+                };
+                break;
+        };
+
         //Picks one genre to pass
         let pickAGenre = Math.floor(Math.random() * movieGenres.length);
-        let genreChosen = movieGenreArray.indexOf(movieGenres[pickAGenre]);
+        let genreChosen = movieGenreArray.indexOf(movieGenres[pickAGenre]);       
+        console.log(genreChosen);
 
-        //If the genre is not in the 
-        while(genreChosen === -1){
-            pickAGenre = Math.floor(Math.random() * movieGenres.length);
-            genreChosen = movieGenreArray.indexOf(movieGenres[pickAGenre]);
-        };
 
         let genrePass = allGenreArray[genreChosen];
 
@@ -98,7 +109,8 @@ function pickGenreFromMovie(title) {
 
         //Pass genre to other medias
         //add books function (pass genre)
-        //add videogames function (pass genre)
+        //video games
+        videoGameFromOther(genrePass);
         //add anime function (pass genre)
 
     });    
