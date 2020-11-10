@@ -11,6 +11,9 @@ let saveAnimeResult = '';
 let newSavedButton;
 let checkUserFavorite;
 
+//All genre array to use for multiple scripts
+var allGenreArray = ['action','adventure','comedy','crime','drama','family','fantasy','history','horror','mystery','romance','science-fiction','thriller','war','western'];
+
 
 //This will run when the user enters in values into the form and clicks on "Find me recommendations"
 function searchFavorite(event) {
