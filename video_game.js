@@ -33,7 +33,9 @@ function favoriteVideoGame(userFavorite, newSearch) {
         };
 
         // Output genre for other scripts to use for recommendation
-
+        // favoriteMovie(userFavorite,newSearch);
+        // favoriteBook(userFavorite,newSearch)
+        // favoriteAnime(userFavorite,newSearch)
     })
 }
 
@@ -51,30 +53,46 @@ function genreChooser(title) {
         // Genres of this title
         let videoGameGenres = [];
         for (i = 0; i < responseGenre.genres.length; i++) {
-            videoGameGenres.push(responseGenre.genres[i].name);
+            videoGameGenres.push(responseGenre.genres[i].slug);
         }
-        console.log(videoGameGenres);
+        console.log('genres: ' + videoGameGenres);
 
         // Tags of this title
         let videoGameTags = [];
         for (i = 0; i < responseGenre.tags.length; i++) {
-            videoGameTags.push(responseGenre.tags[i].name);
+            videoGameTags.push(responseGenre.tags[i].slug);
         }
-        console.log(videoGameTags);
+        console.log('tags: ' + videoGameTags);
 
         // Merges both genre and tag arrays into one
         let merged = $.merge(videoGameGenres, videoGameTags);
         console.log(merged);
 
-        // Pick 1 genre from videoGameGenres array
+        // Master genre array
+        let allGenreArray = ['action','adventure','comedy','crime','drama','family','fantasy','history','horror','mystery','romance','science-fiction','thriller','war','western'];
+        let accepted = [];
+        console.log('allgenre: ' +allGenreArray);
+        console.log('merged: ' +merged);
+
+        for (i = 0; i < merged.length; i++) {
+            var found = $.inArray(merged[i], allGenreArray);
+            if (!(-1 == found)) {
+                accepted.push(merged[i]);
+            }
+        }
+        console.log('accepted: ' + accepted);
+        // Pick 1 genre for video game results array
         let pickAGenre = Math.floor(Math.random() * videoGameGenres.length);
         let genreChosen = merged[pickAGenre];
         console.log('Chosen video game genre: ' + genreChosen);
-        var includeGenreSlugs = ['sci-fi', 'horror', 'funny', 'fantasy', 'gore', 'comedy', 'violent'];
+
+        // Pick 1 genre to pass to other media
+        let pickAGenre2 = Math.floor(Math.random() * accepted.length);
+        let genrePassed = accepted[pickAGenre2];
 
         // Call recommended video game to results
         resultsVideoGame(genreChosen);
-
+        movieFromOtherMedia(genrePassed);
     });
 
 };
@@ -91,10 +109,10 @@ function genreChooser(title) {
 
 
 // If a book, movie or anime was searched, pick a genre from that title 
-function pickVideoGameFromOther(genreChosen) {
+function videoGameFromOther(genrePassedIn) {
 
     // Call recommended video game to results
-    resultsVideoGame(genreChosen);
+    resultsVideoGame(genrePassedIn);
 
 }
 
@@ -133,90 +151,54 @@ function resultsVideoGame(genreChosen) {
 }
 
 // Genre list
-var videoGameGenres = [
-    {
-        id: 4,
-        name: 'Action',
-        slug: 'action'
-    },
-    {
-        id: 2,
-        name: 'Shooter',
-        slug: 'shooter'
-    },
-    {
-        id: 3,
-        name: 'Adventure',
-        slug: 'adventure'
-    },
-    {
-        id: 4,
-        name: 'Action',
-        slug: 'action'
-    },
-    {
-        id: 5,
-        name: 'RPG',
-        slug: 'role-playing-games-rpg'
-    },
-    {
-        id: 10,
-        name: 'Strategy',
-        slug: 'strategy'
-    },
-    {
-        id: 51,
-        name: 'Indie',
-        slug: 'indie'
-    },
-];
 
-var games2 = ['Sci-fi', 'Horror', 'Funny', 'Fantasy', 'Classic', 'Gore', 'Female Protagonist',
- 'Comedy', 'Survival', 'Exploration', 'Violent', 'Zombies', 'Space', 'Dark', 'Anime', 'War',
-  'Post-apocalyptic', 'Family Friendly', 'Mature', 'Cute', 'Mystery', 'Historical', 'Physics', 
-  'Memes', 'Futuristic', 'Aliens', 'Dark Fantasy', 'Military', 'Medieval', 'Cinematic', 'Realistic', 
-'Cyberpunk', 'Crime', 'Magic', 'Dystopian', 'Colorful', 'Robots', 'Driving', 'Music', 'Detective', 
-'Management', 'Assassin', 'Surreal', 'World War II', 'Blood', 'Relaxing', 'Drama', 'Economy', 
-'Heist', 'Romance', 'Superhero', 'America', 'Alternate History', 'Education', 'Time Travel', 'Demons', 
-'Dragons', 'Minimalist', 'Noir', 'Ninja', 'Cartoon', 'Gothic', 'Mechs', 'Flight', 'Tanks', 'Political', 
-'Lovecraftian', 'Party', 'Satire', 'Supernatural', 'Conspiracy', 'Science', 'Hunting', 'Underwater', 
-'Mythology', 'Pirates', 'Trading', 'Pirate', 'Beautiful', 'Thriller', 'Western', 'Dinosaurs', 'Epic', 
-'Batman', 'Cold War', 'Parody', 'European', 'Football', 'Psychedelic', 'Diplomacy', 'LEGO', 'Soccer', 
-'nature', 'race', 'Vampire', 'hero', 'Politics', 'Lara Croft', 'Monsters', 'Naval', 'Modern', 'Investigation', 
-'Mars', 'Fishing', 'history', 'Martial Arts', 'Sniper', 'Police', 'cars', 'Programming', 'future', 'Horses', 
-'World War I', 'Trains', 'Rome', 'Capitalism', 'Indie', 'Adventure', 'Strategy', 'Puzzle', 'Racing', 'Sports', 
-'Family', 'Educational'];
 
-var games = ['Action', 'Adventure', 'Horror', 'Single-Player'];
-var movies = ['Disney', 'Family', 'Adventure', 'Kids'];
-var books = ['Adventure', 'Fantasy', 'Silly', 'Heartwarming'];
-var anime = ['Zombies', 'Horror', 'Apocolypse', 'Adventure'];
+// var games2 = ['Sci-fi', 'Horror', 'Funny', 'Fantasy', 'Classic', 'Gore', 'Female Protagonist',
+//  'Comedy', 'Survival', 'Exploration', 'Violent', 'Zombies', 'Space', 'Dark', 'Anime', 'War',
+//   'Post-apocalyptic', 'Family Friendly', 'Mature', 'Cute', 'Mystery', 'Historical', 'Physics', 
+//   'Memes', 'Futuristic', 'Aliens', 'Dark Fantasy', 'Military', 'Medieval', 'Cinematic', 'Realistic', 
+// 'Cyberpunk', 'Crime', 'Magic', 'Dystopian', 'Colorful', 'Robots', 'Driving', 'Music', 'Detective', 
+// 'Management', 'Assassin', 'Surreal', 'World War II', 'Blood', 'Relaxing', 'Drama', 'Economy', 
+// 'Heist', 'Romance', 'Superhero', 'America', 'Alternate History', 'Education', 'Time Travel', 'Demons', 
+// 'Dragons', 'Minimalist', 'Noir', 'Ninja', 'Cartoon', 'Gothic', 'Mechs', 'Flight', 'Tanks', 'Political', 
+// 'Lovecraftian', 'Party', 'Satire', 'Supernatural', 'Conspiracy', 'Science', 'Hunting', 'Underwater', 
+// 'Mythology', 'Pirates', 'Trading', 'Pirate', 'Beautiful', 'Thriller', 'Western', 'Dinosaurs', 'Epic', 
+// 'Batman', 'Cold War', 'Parody', 'European', 'Football', 'Psychedelic', 'Diplomacy', 'LEGO', 'Soccer', 
+// 'nature', 'race', 'Vampire', 'hero', 'Politics', 'Lara Croft', 'Monsters', 'Naval', 'Modern', 'Investigation', 
+// 'Mars', 'Fishing', 'history', 'Martial Arts', 'Sniper', 'Police', 'cars', 'Programming', 'future', 'Horses', 
+// 'World War I', 'Trains', 'Rome', 'Capitalism', 'Indie', 'Adventure', 'Strategy', 'Puzzle', 'Racing', 'Sports', 
+// 'Family', 'Educational'];
 
-arrayCompare(games, movies, books, anime);
-function arrayCompare(arr1, arr2, arr3, arr4) {
-    var merged1 = [];
-    var merged2 = [];
-    var merged3 = [];
-    for (i = 0; i < arr2.length; i++) {
-        var found = $.inArray(arr2[i], arr1);
-        if (!(-1 == found)) {
-            merged1.push(arr2[i]);
-        }
-    }
-    for (i = 0; i < arr3.length; i++) {
-        var found = $.inArray(arr3[i], arr4);
-        if (!(-1 == found)) {
-            merged2.push(arr3[i]);
-        }
-    }
-    for (i = 0; i < merged1.length; i++) {
-        var found = $.inArray(merged1[i], merged2);
-        if (!(-1 == found)) {
-            merged3.push(merged1[i]);
-            console.log(merged3);
-        }
-    }
-}
+// var games = ['Action', 'Adventure', 'Horror', 'Single-Player'];
+// var movies = ['Disney', 'Family', 'Adventure', 'Kids'];
+// var books = ['Adventure', 'Fantasy', 'Silly', 'Heartwarming'];
+// var anime = ['Zombies', 'Horror', 'Apocolypse', 'Adventure'];
+
+// arrayCompare(games, movies, books, anime);
+// function arrayCompare(arr1, arr2, arr3, arr4) {
+//     var merged1 = [];
+//     var merged2 = [];
+//     var merged3 = [];
+//     for (i = 0; i < arr2.length; i++) {
+//         var found = $.inArray(arr2[i], arr1);
+//         if (!(-1 == found)) {
+//             merged1.push(arr2[i]);
+//         }
+//     }
+//     for (i = 0; i < arr3.length; i++) {
+//         var found = $.inArray(arr3[i], arr4);
+//         if (!(-1 == found)) {
+//             merged2.push(arr3[i]);
+//         }
+//     }
+//     for (i = 0; i < merged1.length; i++) {
+//         var found = $.inArray(merged1[i], merged2);
+//         if (!(-1 == found)) {
+//             merged3.push(merged1[i]);
+//             console.log(merged3);
+//         }
+//     }
+// }
 
 
 
