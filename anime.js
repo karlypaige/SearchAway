@@ -1,11 +1,15 @@
+// Declare global vars
 var searchQuery
 var queryAnimeID
+
+
+// Search for queried Anime
 function favoriteAnime(userFavorite) {
     var searchQuery = userFavorite.trim();
     var url = "https://api.jikan.moe/v3/search/anime?q=" + searchQuery;
     let favTitle, favPosterURL, favPlot, favRating, favScore, favURL, favGenre;
 
-
+    // Searches API for queried anime, and grabs the information for the first result
     $.ajax({
         url: url,
         method: "GET",
@@ -18,13 +22,15 @@ function favoriteAnime(userFavorite) {
             console.log("error");
         };
         queryAnimeID = responseFav.results[0].mal_id;
+
+
+        // Searches the API for that first anime grabbed to grab more detailed data
         $.ajax({
             url: "https://api.jikan.moe/v3/anime/"+responseFav.results[0].mal_id,
             method: "GET",
         }).then(function(response) {
 
             //Add to Favorite Box
-            // console.log(responseFav);
 
             //Title
             favTitle = response.title;
@@ -57,13 +63,13 @@ function favoriteAnime(userFavorite) {
                 animeGenreArray.push(selectedGenre);
             }
             // console.log(animeGenreArray);
-
             pickGenreFromAnime(animeGenreArray);
         });       
     });
 };
 
 
+// Grabs the genre from the searched anime and selects a random one
 function pickGenreFromAnime(animeGenreArray) {
 
     let animeGenres = animeGenreArray;
@@ -71,6 +77,8 @@ function pickGenreFromAnime(animeGenreArray) {
     let genreChosen = animeGenres[pickAGenre];
     var genreConvert
     // console.log ("genreChosen"+genreChosen)
+
+    // Genre ID conversion from API ID to universal genre array in script.js
     switch (genreChosen){
         case 1:
             console.log("Action was Chosen")
@@ -210,6 +218,7 @@ function pickGenreFromAnime(animeGenreArray) {
 };
 
 
+// Converts from script.js genre ID back to API ID
 function genreConvertID(genreConvert){
     if (isNaN(genreConvert)===true){
         genreConvert = allGenreArray.indexOf(genreConvert);
@@ -269,7 +278,7 @@ function genreConvertID(genreConvert){
 };
 
 
-
+// Searches anime by genre and selects a random one from a list of 20
 function animeResult(genreID){        
     $.ajax({
         url: "https://api.jikan.moe/v3/search/anime?genre="+genreID+"&order_by=score&limit=20",
@@ -291,6 +300,8 @@ function animeResult(genreID){
     });
 };
 
+
+// Fills in the information for a searched anime
 function fillAnimeSlot(response){
     //Title
     animeTitle = response.title;
@@ -315,4 +326,4 @@ function fillAnimeSlot(response){
     //Outbound URL
     animeURL = response.url;
     $('#anime-full-url').attr("href", animeURL);
-}
+};
