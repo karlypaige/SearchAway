@@ -29,33 +29,7 @@ function favoriteAnime(userFavorite) {
             url: "https://api.jikan.moe/v3/anime/"+responseFav.results[0].mal_id,
             method: "GET",
         }).then(function(response) {
-
-            //Add to Favorite Box
-
-            //Title
-            favTitle = response.title;
-            $('#favorite-title').html(favTitle);
-
-            //Poster
-            favPosterURL = response.image_url;
-            $('#favorite-poster').attr('src', favPosterURL);
-
-            //Rated
-            favRating = response.rating;
-            $('#favorite-rating').html(`Rated: ${favRating}`);
-
-            //Plot
-            favPlot = response.synopsis;
-            $('#favorite-plot').html(favPlot);
-
-            //Score
-            favScore = response.score;
-            $('#favorite-score').html(`MyAnimeList Rating: ${favScore}/10`);
-
-            //Outbound URL
-            favURL = response.url;
-            $('#favorite-full-url').attr("href", favURL);            
-
+            displayQueriedAnime(response);
             //Genre
             let animeGenreArray = [];
             for (var i=0; i<response.genres.length; i++){
@@ -63,10 +37,42 @@ function favoriteAnime(userFavorite) {
                 animeGenreArray.push(selectedGenre);
             }
             // console.log(animeGenreArray);
-            pickGenreFromAnime(animeGenreArray);
+            if (newSearch){
+                pickGenreFromAnime(animeGenreArray);
+            };
         });       
     });
 };
+
+
+function displayQueriedAnime(response){
+    //Add to Favorite Box
+
+    //Title
+    favTitle = response.title;
+    $('#favorite-title').html(favTitle);
+
+    //Poster
+    favPosterURL = response.image_url;
+    $('#favorite-poster').attr('src', favPosterURL);
+
+    //Rated
+    favRating = response.rating;
+    $('#favorite-rating').html(`Rated: ${favRating}`);
+
+    //Plot
+    favPlot = response.synopsis;
+    $('#favorite-plot').html(favPlot);
+
+    //Score
+    favScore = response.score;
+    $('#favorite-score').html(`MyAnimeList Rating: ${favScore}/10`);
+
+    //Outbound URL
+    favURL = response.url;
+    $('#favorite-full-url').attr("href", favURL);            
+};
+
 
 
 // Grabs the genre from the searched anime and selects a random one
@@ -81,7 +87,6 @@ function pickGenreFromAnime(animeGenreArray) {
     // Genre ID conversion from API ID to universal genre array in script.js
     switch (genreChosen){
         case 1:
-            console.log("Action was Chosen")
             genreConvert = 0;
             break;
         case 2:
@@ -285,7 +290,6 @@ function animeResult(genreID){
     // Check if maturity rating was checked or not
     if ($('#mature').prop('checked') === false){
         searchAnime = "https://api.jikan.moe/v3/search/anime?genre="+genreID+"&order_by=score&limit=20&rated=pg13";
-        console.log("results limited to PG13");
     } else {
         searchAnime = "https://api.jikan.moe/v3/search/anime?genre="+genreID+"&order_by=score&limit=20";
     };
@@ -319,6 +323,8 @@ function fillAnimeSlot(response){
     animeTitle = response.title;
     $('#anime-title').html(animeTitle);
 
+    results("anime", animeTitle);
+
     //Poster
     animePosterURL = response.image_url;
     $('#anime-poster').attr('src',animePosterURL);
@@ -339,3 +345,29 @@ function fillAnimeSlot(response){
     animeURL = response.url;
     $('#anime-full-url').attr("href", animeURL);
 };
+
+
+// Show anime saved from localStorage
+function displaySavedAnimeResult(savedAnime){
+    let url = "https://api.jikan.moe/v3/search/anime?q=" + savedAnime;
+    $.ajax({
+        url: url,
+        method: "GET",
+        error: function() {
+            console.log("error");
+            return;
+        }
+    }).then(function(responseSaved) {
+        if(responseSaved.response === "False"){
+            console.log("error");
+        };
+        // Searches the API for that first anime grabbed to grab more detailed data
+        $.ajax({
+            url: "https://api.jikan.moe/v3/anime/"+responseSaved.results[0].mal_id,
+            method: "GET",
+        }).then(function(responseSavedResult) {
+            fillAnimeSlot(responseSavedResult);
+        });    
+    });
+};
+
