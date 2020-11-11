@@ -1,3 +1,5 @@
+$(document).foundation();
+
 // Searched title from main page
 var maturityFlag = false;
 function favoriteVideoGame(userFavorite, newSearch) {
@@ -15,15 +17,43 @@ function favoriteVideoGame(userFavorite, newSearch) {
             console.log('favoriteVideoGame function returning error');
             return;
         }
-    }).then(function (responseFav) {
+    }).then(function (response) {
+        $('#video-game-spinner').hide();
 
         // Display info at top of page for searched title (favorite box)
-        $('#favorite-title').text(responseFav.name);
-        $('#favorite-poster').attr('src', responseFav.background_image).attr('alt', 'poster');
-        $('#favorite-rating').append(responseFav.esrb_rating.name);
-        $('#favorite-plot').text(responseFav.description_raw);
-        $('#favorite-score').append(responseFav.rating);
-        $('#favorite-full-url').attr('href', responseFav.website);
+        // Title
+        $('#favorite-title').text(response.name);
+
+        // Poster
+        $('#favorite-poster').attr('src', response.background_image).attr('alt', 'poster');
+
+        // ESRB rating
+        if (response.esrb_rating !== null) {
+            $('#favorite-rating').text('Rated: ' + response.esrb_rating.name);
+        } else {
+            $('#favorite-rating').text('Rated: unrated');
+        }
+
+        // Description
+        if (response.description_raw !== null) {
+            $('#favorite-plot').text(response.description_raw);
+        } else {
+            $('#favorite-plot').text('No plot available');
+        }
+
+        // Score
+        if (response.rating !== null) {
+            $('#favorite-score').text('Score: ' + response.rating + '/5');
+        } else {
+            $('#favorite-plot').text('No score available');
+        }
+
+        // URL
+        if (response.website !== null) {
+            $('#favorite-full-url').attr('href', response.website);
+        } else {
+            $('#favorite-full-url').text('No url available');
+        }
 
         // Takes 1 genre from this title and uses it to create recommendations for books, anime, video game and movie
         if (newSearch) {
@@ -99,7 +129,8 @@ function genreChooser(title) {
 
 // If a book, movie or anime was searched, pick a genre from that title 
 function videoGameFromOther(genrePassedIn) {
-
+    // Clears previous search results first
+    clearRecommendedFields();
     // Call recommended video game to results
     resultsVideoGame(genrePassedIn);
 }
@@ -140,7 +171,7 @@ function resultsVideoGame(genreChosen) {
                     return;
                 }
             }).then(function (response) {
-
+                console.log('this');
                 // If mature box isn't checked, don't include mature, adult-only or unrated titles and find a new title
                 if ($('#mature').prop('checked') === false) {
                     if (response.esrb_rating == null || response.esrb_rating.slug == 'mature' || response.esrb_rating.slug == 'adults-only') {
@@ -149,6 +180,9 @@ function resultsVideoGame(genreChosen) {
                         // Populate recommened title info to page
                         recommendationPopulator(response);
                     }
+                } else {
+                    // Populate recommened title info to page
+                    recommendationPopulator(response);
                 }
             })
         }
@@ -194,13 +228,17 @@ function resultsVideoGameFromGenre(genreChosen) {
         }).then(function (response) {
 
             // If mature box isn't checked, don't include mature, adult-only or unrated titles and find a new title
+            // If mature box isn't checked, don't include mature, adult-only or unrated titles and find a new title
             if ($('#mature').prop('checked') === false) {
-                if (response.esrb_rating == null || response.esrb_rating.id == 'mature' || response.esrb_rating.slug == 'adults-only') {
+                if (response.esrb_rating == null || response.esrb_rating.slug == 'mature' || response.esrb_rating.slug == 'adults-only') {
                     resultsVideoGame(genreChosen);
                 } else {
                     // Populate recommened title info to page
                     recommendationPopulator(response);
                 }
+            } else {
+                // Populate recommened title info to page
+                recommendationPopulator(response);
             }
         })
     })
@@ -225,6 +263,8 @@ function displaySavedVideoGameResult(savedVideoGame) {
 
 // Populate recommened title info to page
 function recommendationPopulator(response) {
+    $('#video-game-spinner').hide();
+
     // Title
     $('#video-game-title').text(response.name);
 
@@ -249,7 +289,7 @@ function recommendationPopulator(response) {
     if (response.rating !== null) {
         $('#video-game-score').text('Score: ' + response.rating + '/5');
     } else {
-        $('#video-game-plot').text('No score available');
+        $('#video-game-score').text('No score available');
     }
 
     // URL
@@ -263,9 +303,20 @@ function recommendationPopulator(response) {
     results("video-game", response.name);
 }
 
+// Clears populated fields at the start of a new search
+function clearRecommendedFields() {
+    $('#video-game-title').text('');
+    $('#video-game-poster').attr('src', "").attr('alt', '');
+    $('#video-game-rating').text('Searching...');
+    $('#video-game-spinner').show();
+    $('#video-game-plot').text('');
+    $('#video-game-score').text('');
+    $('#video-game-full-url').text('');
+}
+
+
 // ISSUES //
 // if recommened is the same as searched find a new title
-// while searching for non-mature titles, dont populate page
 
 
 // Genre list
