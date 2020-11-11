@@ -279,18 +279,30 @@ function genreConvertID(genreConvert){
 
 
 // Searches anime by genre and selects a random one from a list of 20
-function animeResult(genreID){        
+function animeResult(genreID){
+    let searchAnime
+
+    // Check if maturity rating was checked or not
+    if ($('#mature').prop('checked') === false){
+        searchAnime = "https://api.jikan.moe/v3/search/anime?genre="+genreID+"&order_by=score&limit=20&rated=pg13";
+        console.log("results limited to PG13");
+    } else {
+        searchAnime = "https://api.jikan.moe/v3/search/anime?genre="+genreID+"&order_by=score&limit=20";
+    };
     $.ajax({
-        url: "https://api.jikan.moe/v3/search/anime?genre="+genreID+"&order_by=score&limit=20",
+        url: searchAnime,
         method: "GET",
     }).then(function(resultResponse) {
         if(resultResponse === "False"){
             console.log("error");
         };
+
+        // Selects a random number for an anime to be chosen
         let randomNumber = Math.floor(Math.random() * Math.floor(20));
         if (resultResponse.results[randomNumber].mal_id===queryAnimeID){
             randomNumber = Math.floor(Math.random() * Math.floor(20));
-        }
+        };
+
         $.ajax({
             url: "https://api.jikan.moe/v3/anime/"+resultResponse.results[randomNumber].mal_id,
             method: "GET",
