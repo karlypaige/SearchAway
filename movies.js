@@ -110,7 +110,7 @@ function pickGenreFromMovie(title) {
 
         //Pass genre to other medias
         //book
-        //add books function (pass genre)
+        searchBooksByGenre(genrePass);
         //video games
         videoGameFromOther(genrePass);
         //anime
