@@ -266,10 +266,13 @@ function resultsVideoGameFromGenre(genreChosen) {
 
 //This will display the video game result that was saved to a button from local storage
 function displaySavedVideoGameResult(savedVideoGame){
-
-    let videoGameResult = savedVideoGame.trim().split(' ').join('+');
-    let recVideoGameURL = "https://www.omdbapi.com/?t=" + videoGameResult + "&apikey=c88e35f9";
-
+    let videoGameResult = savedVideoGame.trim().split(' ').join('-').replace(':', '').replace("'", '');
+    // let videoGameResult = videoGameResultUnLower.toLowerCase();
+    // videoGameResult.toLower();
+    // console.log(videoGameResult);
+    var apiKey = '2838144f3f40444caa2964cbb3316b1f';
+    var recVideoGameURL = 'https://api.rawg.io/api/games/' + videoGameResult + '?key=' + apiKey;
+    console.log(recVideoGameURL);
     $.ajax({
         url: recVideoGameURL,
         method: "GET"
