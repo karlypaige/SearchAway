@@ -76,7 +76,9 @@ function pickGenreFromMovie(title) {
 
         //Take all genres from the movie, and pick one to use
         let movieGenres = responseGenre.results[0].genre_ids;
+        //findMovie(movieGenres);
         findMovie(movieGenres);
+
         //Change any genres that aren't in the arrays to a genre that is in the array
         for(i = 0; i < movieGenres.length; i++){
             switch(movieGenres[i]) {
@@ -92,13 +94,19 @@ function pickGenreFromMovie(title) {
         };
 
 
+        //Pass all genres
+        let multGenres = [];
+        for(i = 0; i < movieGenres.length; i++){
+            let addGenre = $.inArray(movieGenres[i],movieGenreArray);
+            multGenres[i] = allGenreArray[addGenre];  
+        };
+
+
         //Picks one genre to pass
         let pickAGenre = Math.floor(Math.random() * movieGenres.length);
         let genreChosen = movieGenreArray.indexOf(movieGenres[pickAGenre]);       
         let genrePass = allGenreArray[genreChosen];
-
-        //for loop if multiple
-        //if statement       
+     
 
         //Pass genre to other medias
         //book
@@ -190,18 +198,36 @@ function movieResultSection(response) {
 };
 
 
-//This will take the genre passed from one media so that a movie result may be displayed  
+//This will take the genres passed from one media so that a movie result may be displayed  
 function movieFromOtherMedia(useGenre) {
+    //Variable for if multiple genres are passed
+    let newMultGenres = [];
 
-    //Take the genre from the media that was passed
-    let passedGenre = allGenreArray.indexOf(useGenre);
+    //If an array
+    if(Array.isArray(useGenre)){
+        //Compare genres from allGenreArray to movieGenreArray
+         for(i = 0; i < useGenre.length; i++){
+            let passedMultGenre = $.inArray(useGenre[i],allGenreArray);
+            newMultGenres[i] = movieGenreArray[passedMultGenre];
+        };
+        
+        //Find movie using multiple genres
+        findMovie(newMultGenres);
 
-    //Compare that genre index to my movie genre index
-    let newGenre = movieGenreArray[passedGenre];
+    } else {
+        //Take the genre from the media that was passed
+        let passedGenre = allGenreArray.indexOf(useGenre);
 
-    //Find movie
-    findMovie(newGenre);
+        //Compare that genre index to my movie genre index
+        let newGenre = movieGenreArray[passedGenre];
+
+        //Find movie using one genre
+        findMovie(newGenre);
+    };
+
+
 };
+
 
 
 //This will display the movie result that was saved to a button from local storage
