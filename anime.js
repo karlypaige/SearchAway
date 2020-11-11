@@ -218,8 +218,12 @@ function pickGenreFromAnime(animeGenreArray) {
     };
     // console.log ("switch first"+genreConvert);            
     genreConvertID(genreConvert);
+
+
+    // Displays other media by genre
     videoGameFromOther(allGenreArray[genreConvert]);
     movieFromOtherMedia(allGenreArray[genreConvert]);
+    searchBooksByGenre(allGenreArray[genreConvert]);
 };
 
 

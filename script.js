@@ -1,4 +1,4 @@
-$(document).foundation()
+$(document).foundation();
 
 //Variables for user's pick
 let userFavorite; 
@@ -189,6 +189,12 @@ function displaySavedButtons(){
 };
 
 
+function clearSavedButtons(){
+    localStorage.removeItem("allSavedTitles");
+    displaySavedButtons();
+};
+
+
 //This will run once one of the saved-result buttons are clicked.  It will pull the title results that were saved, and display them in the results section
 function displaySavedResult(event) {
 
@@ -250,3 +256,6 @@ $('#save-result').click(saveResult);
 
 //If a saved-title button is clicked:
 $('#saved-buttons').click(displaySavedResult);
+
+//If "Clear All" button is clicked:
+$('#clear-button').click(clearSavedButtons);
