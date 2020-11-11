@@ -12,6 +12,7 @@ let saveVideoGameResult = '';
 let saveAnimeResult = '';
 let newSavedButton;
 let checkUserFavorite;
+let addI = 1; //For button ID
 
 //All genre array to use for multiple scripts
 var allGenreArray = ['action','adventure','comedy','crime','drama','family','fantasy','history','horror','mystery','romance','science-fiction','thriller','war','western'];
@@ -116,8 +117,6 @@ function results(mediatype, title){
 
 //This will run if the user clicks to save the result.  This will save to local storage and generate a button on the search section.
 function saveResult() {
-    //Variables
-    let addI = 1; //For button ID
 
     //This prevents a user from clicking the save button multiple times
     if($('#save-result').prop('disabled')){
@@ -142,7 +141,7 @@ function saveResult() {
 
     //Local Storage
     //Add the results as an object 
-    let addSavedButton = {button: checkUserFavorite, title: userFavorite, media: media, movie: savedMovieResult}; //, book: savedBookResult, videoGame: savedVideoGameResult, anime: savedAnimeResult
+    let addSavedButton = {button: checkUserFavorite, title: userFavorite, media: media, movie: savedMovieResult, videoGame: savedVideoGameResult}; //, book: savedBookResult, anime: savedAnimeResult
     
     //Get current local storage
     savedHistory = JSON.parse(localStorage.getItem("allSavedTitles"));
