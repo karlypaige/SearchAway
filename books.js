@@ -24,7 +24,7 @@ function favoriteBook(userFavorite) {
 
         // console.log(favorite.canonicalVolumeLink);
         console.log(pickGenreFromBook(favorites));
-        searchBooksByGenre("Romance");
+        searchBooksByGenre("Drama");
     });
 };
 
@@ -36,10 +36,12 @@ function pickGenreFromBook(obj){
 }
 
 function searchBooksByGenre(genre) {
+    console.log("you have entered searchBookByGenre.  Genre is: " + genre)
     var apiKey="AIzaSyBSs5kWswhDUiDMYdYxtnVKl8h-wbTTxRw";
     var allGenreArray = ['action','adventure','comedy','crime','drama','family','fantasy','history','horror','mystery','romance','science-fiction','thriller','war','western'];
-    var bookGenreArray =['Fantasy','Fantasy','Fantasy','Fantasy','Fantasy','Fantasy','Fantasy','Fantasy','Fantasy','Fantasy','Romance','Fantasy','Fantasy','Fantasy','Fantasy'];
+    var bookGenreArray =['Fantasy','Fantasy','Fantasy','Fantasy','Drama','Fantasy','Fantasy','Fantasy','Fantasy','Fantasy','Romance','Fantasy','Fantasy','Fantasy','Fantasy'];
     let bookGenre = '';
+
     //convert passed genre to equivalent book genre
     for (var g=0; g<allGenreArray.length; g++) {
         if (allGenreArray[g] === genre || bookGenreArray[g] === genre) {
