@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SearchAway!</title>
     <!--Foundation-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
+        integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/motion-ui@1.2.3/dist/motion-ui.min.css" />
     <!--Our stylesheet-->
     <link rel="stylesheet" href="styles.css">
@@ -15,45 +17,63 @@
 
 <body>
 
-    <header>
+    <!-- <header>
         <div class="title-bar">
             <div class="title-bar-left">
                 <a href="#" id="Title">SearchAway!</a>
             </div>
         </div>
-    </header>
+    </header> -->
 
 
-    <main>
+    <main style="margin-top: 5%;">
         <div class="search-section">
-            <h1>Welcome!</h1>
+            <h1 style="text-align: center; font-size: 100px;">SearchAway!</h1>
             <div class="grid-container">
                 <div class="grid-y grid-padding-y">
                     <div class="medium-6 cell">
                         <label for="user-favorite">
-                            Enter in the title and select if it is a movie, book, video game, or anime:
+                            <!-- Enter in the title and select if it is a movie, book, video game, or anime: -->
                         </label>
-                        <div class="input-group">
-                            <input class="input-group-field" id="user-favorite" type="text" placeholder="Title of your favorite movie, book, video game, or anime">
+                        <div class='grid-x right-align '>
+                            <p style='font-size: x-large'>Include Mature Content</p>
+                            <div class="switch tiny" style='padding-left: 10px;'>
+                                <input class="switch-input" type="checkbox" value="mature" id="mature">
+                                <label class="switch-paddle" style='height: 130%' for="mature"></label>
+                            </div>
+                        </div>
+                        <div class="input-group input-group-rounded">
+
+                            <input class="input-group-field submissionfield" id="user-favorite" style="font-size:35px;"
+                                type="text" placeholder="Title of your favorite movie, book, video game, or anime">
                             <div class="input-group-button">
-                                <button class="button" id="search" type="submit" value="Submit" data-open="error-modal">
+                                <button class="button" id="search" type="submit" value="Submit" style="font-size:15px"
+                                    data-open="error-modal">
                                     <i class="fas fa-search"></i>
                                     Find some recommendedations!
                                 </button>
                             </div>
                         </div>
-                        <p class="hidden" id="title-error">Not a valid title.  Please enter in a valid title.</p>
-                        <fieldset>
-                            <input type="radio" name="media" value="movie" id="movie"><label class="radio-text" for="movie">Movie</label>
-                            <input type="radio" name="media" value="book" id="book"><label class="radio-text" for="book">Book</label>
-                            <input type="radio" name="media" value="video-game" id="video-game"><label class="radio-text" for="video-game">Video Game</label>
-                            <input type="radio" name="media" value="anime" id="anime"><label class="radio-text" for="anime">Anime</label>
+
+                        <p class="hidden" id="title-error">Not a valid title. Please enter in a valid title.</p>
+                        <fieldset class="align-center">
+                            <div class='grid-x'>
+                                <div class="columns small-3 faded-background round-corner">
+                                    <input type="radio" name="media" value="movie" id="movie"><label class="radio-text"for="movie">Movie</label>
+                                </div>
+                                <div class="columns small-3 faded-background round-corner">
+                                    <input type="radio" name="media" value="book" id="book"><label class="radio-text" for="book">Book</label>
+                                </div>
+                                <div class="columns small-3 faded-background round-corner">
+                                    <input type="radio" name="media" value="video-game" id="video-game"><label class="radio-text" for="video-game">Video Game</label>
+                                </div>
+                                <div class="columns small-3 faded-background round-corner">
+                                    <input type="radio" name="media" value="anime" id="anime"><label class="radio-text" for="anime">Anime</label>
+                                </div>
+                            </div>
                         </fieldset>
-                        <p>Include Mature Content</p>
-                        <div class="switch tiny">
-                            <input class="switch-input" type="checkbox" value="mature" id="mature">
-                            <label class="switch-paddle" for="mature"></label>
-                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -82,7 +102,9 @@
                         </div>
                         <div class="cell medium-6">
                             <p id="favorite-rating">Rated:</p>
-                            <p id="favorite-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
+                            <p id="favorite-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore
+                                iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae! Ducimus
+                                veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
                             <p id="favorite-score">Score:</p>
                             <a href="" id="favorite-full-url" target="_blank">Click here for more details</a>
                         </div>
@@ -103,7 +125,10 @@
                             </div>
                             <div class="cell medium-6">
                                 <p id="movie-rating">Rated:</p>
-                                <p id="movie-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
+                                <p id="movie-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                                    Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab
+                                    molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita,
+                                    nemo aut.</p>
                                 <p id="movie-score">Score:</p>
                                 <a href="" id="movie-url" target="_blank">Click here for more details</a>
                             </div>
@@ -119,7 +144,9 @@
                             </div>
                             <div class="cell medium-6">
                                 <p id="book-rating">Rated:</p>
-                                <p id="book-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
+                                <p id="book-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore
+                                    iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae!
+                                    Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
                                 <p id="book-score">Score:</p>
                                 <a href="" id="book-full-url" target="_blank">Click here for more details</a>
                             </div>
@@ -135,7 +162,10 @@
                             </div>
                             <div class="cell medium-6">
                                 <p id="video-game-rating">Rated:</p>
-                                <p id="video-game-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
+                                <p id="video-game-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                                    Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab
+                                    molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita,
+                                    nemo aut.</p>
                                 <p id="video-game-score">Score:</p>
                                 <a href="" id="video-game-full-url" target="_blank">Click here for more details</a>
                                 <!-- Spinner for page loading -->
@@ -157,7 +187,10 @@
                             </div>
                             <div class="cell medium-6">
                                 <p id="anime-rating">Rated:</p>
-                                <p id="anime-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
+                                <p id="anime-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                                    Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab
+                                    molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita,
+                                    nemo aut.</p>
                                 <p id="anime-score">Score:</p>
                                 <a href="" id="anime-full-url" target="_blank">Click here for more details</a>
                             </div>
@@ -165,30 +198,34 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="grid-container">
                 <div class="grid-x">
                     <div class="button-group">
                         <a class="button" id="save-result">Save this result!</a>
                         <a class="button" id="go-back">Go back to the search page!</a>
-                    </div>    
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="reveal" id="search-error-modal" data-reveal data-animation-in="fade-in" data-animation-out="fade-out" data-close-on-click="true">
+        <div class="reveal" id="search-error-modal" data-reveal data-animation-in="fade-in"
+            data-animation-out="fade-out" data-close-on-click="true">
             <h1>Woah, there!</h1>
-            <p class='lead'>The search field is either empty or is invalid, please make sure it is completely filled out.</p>
+            <p class='lead'>The search field is either empty or is invalid, please make sure it is completely filled
+                out.</p>
             <button class="close-button" data-close aria-label="Close reveal" type="button">
-              <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">&times;</span>
             </button>
         </div>
 
-        <div class="reveal" id="media-error-modal" data-reveal data-animation-in="fade-in" data-animation-out="fade-out" data-close-on-click="true">
+        <div class="reveal" id="media-error-modal" data-reveal data-animation-in="fade-in" data-animation-out="fade-out"
+            data-close-on-click="true">
             <h1>Hey there!</h1>
-            <p class='lead'>A media type has not been selected yet. Please choose a media type using the radio buttons underneath the search bar.</p>
+            <p class='lead'>A media type has not been selected yet. Please choose a media type using the radio buttons
+                underneath the search bar.</p>
             <button class="close-button" data-close aria-label="Close reveal" type="button">
-              <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">&times;</span>
             </button>
         </div>
 
@@ -210,4 +247,5 @@
     <script src="anime.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -1,3 +1,52 @@
+body {
+    background-image: url(greenbluepolybackground.jpg);
+}
+
+/* Search bar button */
+.input-group-rounded .input-group-field {
+    border-radius: 5000px 0 0 5000px;
+    padding-left: 1rem;
+  }
+  
+  .input-group-rounded .input-group-button .button {
+    border-radius: 0 5000px 5000px 0;
+    font-size: 0.8rem;
+  }
+
+/* Input form height */
+.submissionfield { width: 100%; height: 100px; border: 1px solid #999999; padding: 5px; }
+
+/* Center align */
+.align-center {
+    display: block;
+    margin: 1.0em auto;
+    text-align: center;
+}
+
+.faded-background {
+    background-color: white;
+    opacity: 0.75;
+}
+.faded-background:hover {
+    background-color: #1779BA;
+    opacity: 1.0;
+}
+
+.faded-background:active {
+    background-color: rgb(55, 253, 204);
+    opacity: 1.0;
+}
+
+/* Edge rounded */
+.round-corner {
+    border-radius: 500px;
+}
+
+.right-align {
+    float: right;
+}
+
+
 .hidden {
     display: none;
 }
