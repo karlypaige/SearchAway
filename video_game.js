@@ -175,6 +175,8 @@ function resultsVideoGame(genreChosen) {
                     }
                 }
                 $('#video-game-title').text(response.name);
+                //Pass this title in case it needs to be saved to local storage
+                results("video-game", response.name);
                 // results("video-game", response.name);
                 $('#video-game-poster').attr('src', response.background_image).attr('alt', 'poster');
                 if (response.esrb_rating !== null) {
@@ -245,6 +247,8 @@ function resultsVideoGameFromGenre(genreChosen) {
             }
 
             $('#video-game-title').text(response.name);
+            //Pass this title in case it needs to be saved to local storage
+            results("video-game", response.name);
             // results("video-game", response.name);
             $('#video-game-poster').attr('src', response.background_image).attr('alt', 'poster');
             if (response.esrb_rating !== null) {
@@ -258,6 +262,35 @@ function resultsVideoGameFromGenre(genreChosen) {
         })
     })
 }
+
+
+//This will display the video game result that was saved to a button from local storage
+function displaySavedVideoGameResult(savedVideoGame){
+
+    let videoGameResult = savedVideoGame.trim().split(' ').join('+');
+    let recVideoGameURL = "https://www.omdbapi.com/?t=" + videoGameResult + "&apikey=c88e35f9";
+
+    $.ajax({
+        url: recVideoGameURL,
+        method: "GET"
+    }).then(function(response) {
+        //Call function to display the results
+        $('#video-game-title').text(response.name);
+        //Pass this title in case it needs to be saved to local storage
+        results("video-game", response.name);
+        // results("video-game", response.name);
+        $('#video-game-poster').attr('src', response.background_image).attr('alt', 'poster');
+        if (response.esrb_rating !== null) {
+            $('#video-game-rating').text('Rated: ' + response.esrb_rating.name);
+        }
+        $('#video-game-plot').text(response.description_raw);
+        $('#video-game-score').text('Score: ' + response.rating + '/5');
+        $('#video-game-full-url').attr('href', response.website);
+
+        
+    });
+};
+
 // Genre list
 
 
