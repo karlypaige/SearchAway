@@ -2,6 +2,15 @@
     display: none;
 }
 
+#Title {
+    font-size: 3rem;
+}
+
+.radio-text {
+    font-size: 1.5rem;
+}
+
+
 #favorite-data {
     background-color: plum;
 }

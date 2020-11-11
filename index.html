@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Away!</title>
+    <title>SearchAway!</title>
     <!--Foundation-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/motion-ui@1.2.3/dist/motion-ui.min.css" />
     <!--Our stylesheet-->
     <link rel="stylesheet" href="styles.css">
+    <!-- Icons from Font Awesome -->
+    <script src="https://kit.fontawesome.com/f21b4b2424.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -16,7 +18,7 @@
     <header>
         <div class="title-bar">
             <div class="title-bar-left">
-                <a href="#">BCKS</a>
+                <a href="#" id="Title">SearchAway!</a>
             </div>
         </div>
     </header>
@@ -31,20 +33,29 @@
                         <label for="user-favorite">
                             Enter in the title and select if it is a movie, book, video game, or anime:
                         </label>
-                        <input id="user-favorite" type="text" placeholder="Title of your favorite movie, book, video game, or anime">
+                        <div class="input-group">
+                            <input class="input-group-field" id="user-favorite" type="text" placeholder="Title of your favorite movie, book, video game, or anime">
+                            <div class="input-group-button">
+                                <button class="button" id="search" type="submit" value="Submit" data-open="error-modal">
+                                    <i class="fas fa-search"></i>
+                                    Find some recommendedations!
+                                </button>
+                            </div>
+                        </div>
                         <p class="hidden" id="title-error">Not a valid title.  Please enter in a valid title.</p>
                         <fieldset>
-                            <input type="radio" name="media" value="movie" id="movie"><label for="movie">Movie</label>
-                            <input type="radio" name="media" value="book" id="book"><label for="book">Book</label>
-                            <input type="radio" name="media" value="video-game" id="video-game"><label for="video-game">Video Game</label>
-                            <input type="radio" name="media" value="anime" id="anime"><label for="anime">Anime</label>
+                            <input type="radio" name="media" value="movie" id="movie"><label class="radio-text" for="movie">Movie</label>
+                            <input type="radio" name="media" value="book" id="book"><label class="radio-text" for="book">Book</label>
+                            <input type="radio" name="media" value="video-game" id="video-game"><label class="radio-text" for="video-game">Video Game</label>
+                            <input type="radio" name="media" value="anime" id="anime"><label class="radio-text" for="anime">Anime</label>
                         </fieldset>
-                        <label for="mature">Include mature content:                         <input type="checkbox" value="mature" id="mature"></label>
+                        <p>Include Mature Content</p>
+                        <div class="switch tiny">
+                            <input class="switch-input" type="checkbox" value="mature" id="mature">
+                            <label class="switch-paddle" for="mature"></label>
+                        </div>
                     </div>
                 </div>
-                <fieldset class="cell large-6">
-                    <button class="button" id="search" type="submit" value="Submit" data-open="error-modal">Find me recommendations!</button>
-                </fieldset>
             </div>
             <!--Saved Searches-->
             <div class="grid-container saved-history">
