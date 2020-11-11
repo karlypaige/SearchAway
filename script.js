@@ -220,7 +220,7 @@ function displaySavedResult(event) {
             //For media results needing to display
             savedMovie = savedHistory[i].movie;
             //savedBook = savedHistory[i].book;
-            //savedVideoGame = savedHistory[i].videoGame;
+            savedVideoGame = savedHistory[i].videoGame;
             //savedAnime = savedHistory[i].anime;
         };
     };
@@ -233,7 +233,7 @@ function displaySavedResult(event) {
     //For results-section
     displaySavedMovieResult(savedMovie);
     //displaySavedBookResult(savedBook);
-    //displaySavedVideoGameResult(savedVideoGame);
+    displaySavedVideoGameResult(savedVideoGame);
     //displaySavedAnimeResult(savedAnime);
 };
 
