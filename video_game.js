@@ -1,9 +1,7 @@
-// favoriteVideoGame($('#user-favorite').val());
-// Searched title
-var otherMediaFlag = false;
-var favoriteFlag = false;
+// Searched title from main page
 var maturityFlag = false;
 function favoriteVideoGame(userFavorite, newSearch) {
+    // Trims title into workable slug
     let title = userFavorite.trim().split(' ').join('-').replace(':', '');
 
     var apiKey = '2838144f3f40444caa2964cbb3316b1f';
@@ -26,17 +24,11 @@ function favoriteVideoGame(userFavorite, newSearch) {
         $('#favorite-plot').text(responseFav.description_raw);
         $('#favorite-score').append(responseFav.rating);
         $('#favorite-full-url').attr('href', responseFav.website);
-        // console.log(gamesURL);
-        // Takes 1 genre from this title and uses it to create recommendations
-        // for books, anime, video game and movie
+
+        // Takes 1 genre from this title and uses it to create recommendations for books, anime, video game and movie
         if (newSearch) {
             genreChooser(title);
         };
-
-        // Output genre for other scripts to use for recommendation
-        // favoriteMovie(userFavorite,newSearch);
-        // favoriteBook(userFavorite,newSearch)
-        // favoriteAnime(userFavorite,newSearch)
     })
 }
 
@@ -46,6 +38,7 @@ function genreChooser(title) {
     var apiKey = '2838144f3f40444caa2964cbb3316b1f';
     var gamesURL = 'https://api.rawg.io/api/games/' + title + '?key=' + apiKey;
 
+    // Search title for genres and tags
     $.ajax({
         url: gamesURL,
         method: "GET",
@@ -65,36 +58,31 @@ function genreChooser(title) {
         for (i = 0; i < responseGenre.genres.length; i++) {
             videoGameGenres.push(responseGenre.genres[i].slug);
         }
-        // console.log('genres: ' + videoGameGenres);
 
         // Tags of this title
         let videoGameTags = [];
         for (i = 0; i < responseGenre.tags.length; i++) {
             videoGameTags.push(responseGenre.tags[i].slug);
         }
-        // console.log('tags: ' + videoGameTags);
 
-        // Merges both genre and tag arrays into one
+        // Merges both genre and tag arrays into one array
         let merged = $.merge(videoGameGenres, videoGameTags);
-        // console.log(merged);
 
-        // Master genre array
+        // Master genre array for all media types
         let allGenreArray = ['action', 'adventure', 'comedy', 'crime', 'drama', 'family', 'fantasy', 'history', 'horror', 'mystery', 'romance', 'science-fiction', 'thriller', 'war', 'western'];
-        let accepted = [];
-        // console.log('allgenre: ' +allGenreArray);
-        // console.log('merged: ' +merged);
 
+        // Chooses genres from title that are shared with allGenreArray
+        let accepted = [];
         for (i = 0; i < merged.length; i++) {
             var found = $.inArray(merged[i], allGenreArray);
             if (!(-1 == found)) {
                 accepted.push(merged[i]);
             }
         }
-        // console.log('accepted: ' + accepted);
-        // Pick 1 genre for video game results array
+
+        // Pick 1 genre for video game results
         let pickAGenre = Math.floor(Math.random() * videoGameGenres.length);
         let genreChosen = merged[pickAGenre];
-        // console.log('Chosen video game genre: ' + genreChosen);
 
         // Pick 1 genre to pass to other media
         let pickAGenre2 = Math.floor(Math.random() * accepted.length);
@@ -103,37 +91,26 @@ function genreChooser(title) {
         // Call recommended video game to results
         resultsVideoGame(genreChosen);
         movieFromOtherMedia(genrePassed);
+        searchBooksByGenre(genrePassed);
         genreConvertID(genrePassed);
     });
 
 };
 
-// Create a function that finds a game with a related genre or title
-// function takes the title's url
-// then it parses our the genres and tags into arrays
-// then it selects one of those at random
-// then it calls the list of games with that specific genre https://api.rawg.io/api/games?genres=action
-// then it chooses one game at random and displays that
-
-
-// If something other than a video game was searched
-
-
 // If a book, movie or anime was searched, pick a genre from that title 
 function videoGameFromOther(genrePassedIn) {
-    // console.log(genrePassedIn);
+
     // Call recommended video game to results
     resultsVideoGame(genrePassedIn);
-
 }
 
-var timesSearched = 0;
-// Populates related video game title
+// Populate recommened video game section with related video game title
 function resultsVideoGame(genreChosen) {
+
     var apiKey = '2838144f3f40444caa2964cbb3316b1f';
-    // Go to genre database
     var genreUrl = 'https://api.rawg.io/api/games?tags=' + genreChosen;
 
+    // Generate list of all video games with that tag
     $.ajax({
         url: genreUrl,
         method: 'GET',
@@ -143,63 +120,47 @@ function resultsVideoGame(genreChosen) {
         }
     }).then(function (response) {
 
-        // If tags aren't working and it needs to search genres instead
+        // If tags aren't returning results it needs to search genres instead
         if (response.count == 0) {
             resultsVideoGameFromGenre(genreChosen);
         } else {
-
-            // console.log('TAG USED' + genreUrl);
-            // Pick random title 
+            // Pick random title from their list
             let titles = response.results;
             let pickTitle = Math.floor(Math.random() * titles.length);
 
             // Populate recommened video game section with this title's info
             var title = response.results[pickTitle].slug;
-
             var titleURL = 'https://api.rawg.io/api/games/' + title + '?key=' + apiKey;
-            // console.log('Recommended video game url ' + titleURL);
+
             $.ajax({
                 url: titleURL,
                 method: 'GET',
                 error: function () {
-                    console.log('resultsVideoGame child function returning error');
+                    console.log('resultsVideoGame sub function returning error');
                     return;
                 }
             }).then(function (response) {
 
-                //If mature box isn't checked, don't include rated R or TV-MA movies (find new movie otherwise)
+                // If mature box isn't checked, don't include mature, adult-only or unrated titles and find a new title
                 if ($('#mature').prop('checked') === false) {
                     if (response.esrb_rating == null || response.esrb_rating.slug == 'mature' || response.esrb_rating.slug == 'adults-only') {
                         resultsVideoGame(genreChosen);
-                        timesSearched++;
+                    } else {
+                        // Populate recommened title info to page
+                        recommendationPopulator(response);
                     }
                 }
-                $('#video-game-title').text(response.name);
-                //Pass this title in case it needs to be saved to local storage
-                results("video-game", response.name);
-                // results("video-game", response.name);
-                $('#video-game-poster').attr('src', response.background_image).attr('alt', 'poster');
-                if (response.esrb_rating !== null) {
-                    $('#video-game-rating').text('Rated: ' + response.esrb_rating.name);
-                }
-                $('#video-game-plot').text(response.description_raw);
-                $('#video-game-score').text('Score: ' + response.rating + '/5');
-                $('#video-game-full-url').attr('href', response.website);
-
-
             })
         }
     })
-
 }
 
-
-// Populates related video game title
+// Populates related video game title from genre
 function resultsVideoGameFromGenre(genreChosen) {
     var apiKey = '2838144f3f40444caa2964cbb3316b1f';
-    // Go to genre database
     var genreUrl = 'https://api.rawg.io/api/games?genres=' + genreChosen;
 
+    // Go to genre database
     $.ajax({
         url: genreUrl,
         method: 'GET',
@@ -209,18 +170,11 @@ function resultsVideoGameFromGenre(genreChosen) {
         }
     }).then(function (response) {
 
+        // If tags aren't returning results it needs to do the search over
         if (response.count == 0) {
             resultsVideoGameFromGenre(genreChosen);
         }
 
-        //If mature box isn't checked, don't include rated R or TV-MA movies (find new movie otherwise)
-        // if ($('#mature').prop('checked') === false) {
-        //     if (response.esrb_rating.slug == 'mature') {
-        //         resultsVideoGameFromGenre(genreChosen);
-        //     }
-        // };
-        // console.log('esrb: ' + response.esrb_rating.slug);
-        // console.log('GENRE USED' + genreUrl);
         // Pick random title 
         let titles = response.results;
         let pickTitle = Math.floor(Math.random() * titles.length);
@@ -238,61 +192,81 @@ function resultsVideoGameFromGenre(genreChosen) {
                 return;
             }
         }).then(function (response) {
-            // console.log('im executing');
-            //If mature box isn't checked, don't include rated R or TV-MA movies (find new movie otherwise)
+
+            // If mature box isn't checked, don't include mature, adult-only or unrated titles and find a new title
             if ($('#mature').prop('checked') === false) {
                 if (response.esrb_rating == null || response.esrb_rating.id == 'mature' || response.esrb_rating.slug == 'adults-only') {
                     resultsVideoGame(genreChosen);
+                } else {
+                    // Populate recommened title info to page
+                    recommendationPopulator(response);
                 }
             }
-
-            $('#video-game-title').text(response.name);
-            //Pass this title in case it needs to be saved to local storage
-            results("video-game", response.name);
-            // results("video-game", response.name);
-            $('#video-game-poster').attr('src', response.background_image).attr('alt', 'poster');
-            if (response.esrb_rating !== null) {
-                $('#video-game-rating').text('Rated: ' + response.esrb_rating.name);
-            }
-            $('#video-game-plot').text(response.description_raw);
-            $('#video-game-score').text('Score: ' + response.rating + '/5');
-            $('#video-game-full-url').attr('href', response.website);
-
-
         })
     })
 }
 
-
 //This will display the video game result that was saved to a button from local storage
-function displaySavedVideoGameResult(savedVideoGame){
+function displaySavedVideoGameResult(savedVideoGame) {
+    // Trim title for webpage slug
     let videoGameResult = savedVideoGame.trim().split(' ').join('-').replace(':', '').replace("'", '');
-    // let videoGameResult = videoGameResultUnLower.toLowerCase();
-    // videoGameResult.toLower();
-    // console.log(videoGameResult);
     var apiKey = '2838144f3f40444caa2964cbb3316b1f';
     var recVideoGameURL = 'https://api.rawg.io/api/games/' + videoGameResult + '?key=' + apiKey;
-    console.log(recVideoGameURL);
+
     $.ajax({
         url: recVideoGameURL,
         method: "GET"
-    }).then(function(response) {
-        //Call function to display the results
-        $('#video-game-title').text(response.name);
-        //Pass this title in case it needs to be saved to local storage
-        results("video-game", response.name);
-        // results("video-game", response.name);
-        $('#video-game-poster').attr('src', response.background_image).attr('alt', 'poster');
-        if (response.esrb_rating !== null) {
-            $('#video-game-rating').text('Rated: ' + response.esrb_rating.name);
-        }
-        $('#video-game-plot').text(response.description_raw);
-        $('#video-game-score').text('Score: ' + response.rating + '/5');
-        $('#video-game-full-url').attr('href', response.website);
+    }).then(function (response) {
 
-        
+        // Populate recommened title info to page
+        recommendationPopulator(response);
     });
 };
+
+// Populate recommened title info to page
+function recommendationPopulator(response) {
+    // Title
+    $('#video-game-title').text(response.name);
+
+    // Poster
+    $('#video-game-poster').attr('src', response.background_image).attr('alt', 'poster');
+
+    // ESRB rating
+    if (response.esrb_rating !== null) {
+        $('#video-game-rating').text('Rated: ' + response.esrb_rating.name);
+    } else {
+        $('#video-game-rating').text('Rated: unrated');
+    }
+
+    // Description
+    if (response.description_raw !== null) {
+        $('#video-game-plot').text(response.description_raw);
+    } else {
+        $('#video-game-plot').text('No plot available');
+    }
+
+    // Score
+    if (response.rating !== null) {
+        $('#video-game-score').text('Score: ' + response.rating + '/5');
+    } else {
+        $('#video-game-plot').text('No score available');
+    }
+
+    // URL
+    if (response.website !== null) {
+        $('#video-game-full-url').attr('href', response.website);
+    } else {
+        $('#video-game-full-url').text('No url available');
+    }
+
+    // Passed title for use in saved search button
+    results("video-game", response.name);
+}
+
+// ISSUES //
+// if recommened is the same as searched find a new title
+// while searching for non-mature titles, dont populate page
+
 
 // Genre list
 
