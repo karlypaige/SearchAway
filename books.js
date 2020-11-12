@@ -1,21 +1,21 @@
 var apiKey="AIzaSyBSs5kWswhDUiDMYdYxtnVKl8h-wbTTxRw";
 var allGenreArray = ['action','adventure','comedy','crime','drama','family','fantasy','history','horror','mystery','romance','science-fiction','thriller','war','western'];
 var bookGenreArray = [
-['Action'],
-['Adventure', 'Adventure and adventurers'],
-['Humor'],
-['Crime'], 
-['Drama','Law'],
-['Juvenile Fiction', 'Juvenile Nonfiction', 'Children\'s stories'],
-['Young Adult Fiction'],
-['Biography & Autobiography', 'History', 'Social Science', 'Political Science', 'Courts', 'Philosophy'],
-['Psychology'],
-['Mystery'],
-['Fiction'],
-['Sciencefiction', 'Comic science fiction', 'Computers', 'Science'],
-['Assasins', 'Arson'],
-['Battles'],
-['Western']
+/*action*/          ['Action'],
+/*adventure*/       ['Adventure', 'Adventure and adventurers'],
+/*comedy*/          ['Humor'],
+/*crime*/           ['Crime'], 
+/*drama*/           ['Drama','Law'],
+/*family*/          ['Juvenile Fiction', 'Juvenile Nonfiction', 'Children\'s stories'],
+/*fantasy*/         ['Young Adult Fiction'],
+/*history*/         ['Biography & Autobiography', 'History', 'Social Science', 'Political Science', 'Courts', 'Philosophy'],
+/*horror*/          ['Psychology'],
+/*mystery*/         ['Mystery'],
+/*romance*/         ['Fiction'],
+/*science-fiction*/ ['Sciencefiction', 'Comic science fiction', 'Computers', 'Science'],
+/*thriller*/        ['Assasins', 'Arson'],
+/*war*/             ['Battles'],
+/*western*/         ['Western']
 ];
     
 
