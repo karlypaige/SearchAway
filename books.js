@@ -40,8 +40,6 @@ function favoriteBook(userFavorite, newSearch) {
         $("#favorite-plot").text(favorite.description);
         $("#favorite-score").text("Average book rating: " + favorite.averageRating);
         $("#favorite-full-url").attr("href", favorite.canonicalVolumeLink);
-
-        console.log(favorites);
         
         if(newSearch){
             pickGenreFromBook(favorites);
@@ -55,7 +53,7 @@ function favoriteBook(userFavorite, newSearch) {
 function pickGenreFromBook(obj){
     var bookGenre = obj.items[0].volumeInfo.categories[0];
     var passedGenre;
-    console.log("bookGenre is: " + bookGenre);
+
     //convert book Genre to allGenreArray
     for (var b=0; b<bookGenreArray.length; b++) {
         //if value at index is single value
@@ -79,7 +77,6 @@ function pickGenreFromBook(obj){
         }
     }
 
-    console.log("passedGenre is: " + passedGenre)
     //Pass genre to other medias
     //book
     searchBooksByGenre(passedGenre);
@@ -93,11 +90,10 @@ function pickGenreFromBook(obj){
 }
 
 function searchBooksByGenre(genre) {
-    console.log("searchBookByGenre Genre is: " + genre)
+
     var apiKey="AIzaSyBSs5kWswhDUiDMYdYxtnVKl8h-wbTTxRw";
     let bookGenre = '';
 
-    // console.log("bookGenre is: " + bookGenre);
     var queryGenre="https://www.googleapis.com/books/v1/volumes?q=+subject:" + genre + "&maxResults=" + 40;// + "&key=" + apiKey;
 
     $.ajax({
@@ -109,8 +105,7 @@ function searchBooksByGenre(genre) {
         function findAndUpdateBook() {
             let randIndex = Math.floor(Math.random() * 40);
             let book = books.items[randIndex].volumeInfo;
-            console.log("MATURITY RATING: " + book.maturityRating);
-            console.log(book.title);
+            
             //If mature box isn't selected, don't include rated "MATURE" (rerun function to genreate new index number)
             //search is iterative until "NOT_MATURE" rating is found
             if($('#mature').prop('checked') === false){
@@ -122,7 +117,7 @@ function searchBooksByGenre(genre) {
         }
 
         newBook = findAndUpdateBook();
-        console.log("book title outside of function: " + newBook.title);
+        
         //display results
         $("#book-title").text(newBook.title);
         $("#book-poster").attr("src", newBook.imageLinks.thumbnail);
