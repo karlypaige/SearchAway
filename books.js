@@ -1,6 +1,22 @@
 var apiKey="AIzaSyBSs5kWswhDUiDMYdYxtnVKl8h-wbTTxRw";
 var allGenreArray = ['action','adventure','comedy','crime','drama','family','fantasy','history','horror','mystery','romance','science-fiction','thriller','war','western'];
-var bookGenreArray = ['Action','Adventure','Comedy','Crime','Drama','Juvenile Fiction','Young Adult Fiction','Biography & Autobiography','Horror','Mystery','Romance','Science-Fiction','Thriller','War','Western'];
+var bookGenreArray = [
+['Action'],
+['Adventure', 'Adventure and adventurers'],
+['Humor'],
+['Crime'], 
+['Drama','Law'],
+['Juvenile Fiction', 'Juvenile Nonfiction', 'Children\'s stories'],
+['Young Adult Fiction'],
+['Biography & Autobiography', 'History', 'Social Science', 'Political Science', 'Courts', 'Philosophy'],
+['Psychology'],
+['Mystery'],
+['Fiction'],
+['Sciencefiction', 'Comic science fiction', 'Computers', 'Science'],
+['Assasins', 'Arson'],
+['Battles'],
+['Western']
+];
     
 
 function favoriteBook(userFavorite, newSearch) {
@@ -42,13 +58,28 @@ function pickGenreFromBook(obj){
     console.log("bookGenre is: " + bookGenre);
     //convert book Genre to allGenreArray
     for (var b=0; b<bookGenreArray.length; b++) {
-        if (bookGenreArray[b] === bookGenre) {
-            //capture the index
-            passedGenre = allGenreArray[b];
-            break;
+        console.log("---sorting through bookGenreArray: " + bookGenreArray[b]);
+        //if value at index is single value
+        if(bookGenreArray[b].length === 1){
+            if (bookGenreArray[b] == bookGenre) {
+                //capture the index
+                passedGenre = allGenreArray[b];
+                break;
+            } 
+            //if value at index is array
+        } else if (bookGenreArray[b].length > 1){
+            for (var sub=0; sub<bookGenreArray[b].length; sub++){
+                console.log("-------sorting through sub Array: " + bookGenreArray[b][sub]);
+                if (bookGenreArray[b][sub] == bookGenre) {
+                    passedGenre = allGenreArray[b];
+                    break;
+                }
+            }
+            //if value not found select a drama
         } else {
-            passedGenre ='drama';
+            passedGenre = "drama'";
         }
+        console.log("THE INTENDED VALUE IS: " + allGenreArray[b])
     }
 
     console.log("passedGenre is: " + passedGenre)
