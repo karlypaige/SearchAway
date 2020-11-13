@@ -123,13 +123,13 @@ function pickGenreFromMovie(title) {
 //This will have a new movie generated to be displayed
 function findMovie(genreChosen){
     //Find Movies with this same genre id
-    let findMovieRecsURL = 'https://api.themoviedb.org/3/discover/movie?with_genres=' + genreChosen + '&api_key=d8731638c74bc1c4039ad5e0a50c36af'
+    let findMovieRecsURL = 'https://api.themoviedb.org/3/discover/movie?with_genres=' + genreChosen + '&vote_average.gte=6&api_key=d8731638c74bc1c4039ad5e0a50c36af'
 
     $.ajax({
          url: findMovieRecsURL,
          method: "GET"
     }).then(function(responseRecommend) {
-        
+
          //This will call the following function to pick a movie from the results returned
         findAndUpdateMovie();
 
@@ -224,8 +224,6 @@ function movieFromOtherMedia(useGenre) {
         //Find movie using one genre
         findMovie(newGenre);
     };
-
-
 };
 
 
