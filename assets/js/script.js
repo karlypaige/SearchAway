@@ -132,7 +132,7 @@ function saveResult() {
     
     //Create a new button and add classes, ID, and text
     newSavedButton = $('<button>');
-    newSavedButton.addClass('button saved-result')
+    newSavedButton.addClass('button saved-result rounded')
     newSavedButton.attr('id', checkUserFavorite);
     newSavedButton.html(checkUserFavorite);
     //Prepend the new button to the saved
@@ -178,7 +178,7 @@ function displaySavedButtons(){
         $('.saved-history').removeClass('hidden');
         for(i = 0; i < savedHistory.length; i++){
             newSavedButton = $('<button>');
-            newSavedButton.addClass('button saved-result')
+            newSavedButton.addClass('button saved-result rounded')
             let savedButtonName = savedHistory[i].button;
             newSavedButton.attr('id', savedButtonName)
             newSavedButton.html(savedButtonName);
@@ -202,7 +202,7 @@ function displaySavedResult(event) {
     let savedTitle, savedMedia, savedMovie, savedBook, savedVideoGame, savedAnime;
 
     //If a button was not clicked
-    if($(event.target).attr('class') !== 'button saved-result'){
+    if($(event.target).attr('class') !== 'button saved-result rounded'){
         return;
     };
 
@@ -259,3 +259,8 @@ $('#saved-buttons').click(displaySavedResult);
 
 //If "Clear All" button is clicked:
 $('#clear-button').click(clearSavedButtons);
+
+// Allows the area around the text to be selected to the corresponding media
+$('.radio-boxes').click((event) => {
+    $(event.target).children("input").prop("checked",true);
+});

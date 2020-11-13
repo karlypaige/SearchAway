@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SearchAway!</title>
+    <!-- Browser tab icon -->
+    <link rel="icon" href="https://assets.stickpng.com/images/59cfc4d2d3b1936210a5ddc7.png" type="image">
     <!--Foundation-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
         integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
@@ -28,7 +30,7 @@
 
     <main style="margin-top: 5%;">
         <div class="search-section">
-            <h1 style="text-align: center; font-size: 100px;">SearchAway!</h1>
+            <h1 style="text-align: center; font-size: 6.5rem;">SearchAway!</h1>
             <div class="grid-container">
                 <div class="grid-y grid-padding-y">
                     <div class="medium-6 cell">
@@ -38,43 +40,45 @@
 
                         <div class="input-group input-group-rounded">
 
-                            <input class="input-group-field submissionfield" id="user-favorite" style="font-size:35px;"
+                            <input class="input-group-field submissionfield" id="user-favorite" style="font-size:1.8rem;"
                                 type="text" placeholder="Title of your favorite movie, book, video game, or anime">
                             <div class="input-group-button">
-                                <button class="button" id="search" type="submit" value="Submit" style="font-size:15px"
+                                <button class="button" id="search" type="submit" value="Submit" style="font-size:1.4rem"
                                     data-open="error-modal">
                                     <i class="fas fa-search"></i>
-                                    Find some recommendedations!
+                                    Recommend!
                                 </button>
                             </div>
                         </div>
-                        <div class='grid-x right-align rounded-mature'>
-                            <p class='align-center' style='font-size: medium'>Include Mature Content</p>
-                            <div class="switch tiny align-center" style='padding-left: 10px;'>
-                                <input class="switch-input" type="checkbox" value="mature" id="mature">
-                                <label class="switch-paddle"  for="mature"></label>
-                            </div>
+                        <div class='grid-x'>
+                            <section class="small-3 columns rounded-mature align-center">
+                                <p class='align-center' id="mature-text">Mature Content</p>
+                                <div class="switch small" style='margin-top:1.3rem'>
+                                    <input class="switch-input" type="checkbox" value="mature" id="mature">
+                                    <label class="switch-paddle rounded"  for="mature"></label>
+                                </div>
+                            </section>
                         </div>
 
                      
                             <p class="hidden" id="title-error">Not a valid title. Please enter in a valid title.</p>
                             <fieldset class="align-center">
                                 <div class='grid-x'>
-                                    <div class="columns small-3 faded-background round-corner">
-                                        <input type="radio" name="media" value="movie" id="movie"><label
-                                            class="radio-text" for="movie">Movie</label>
+                                    <div class="columns small-3 faded-background round-corner radio-boxes">
+                                        <input type="radio" name="media" value="movie" id="movie">
+                                        <label class="radio-text" for="movie">Movie</label>
                                     </div>
-                                    <div class="columns small-3 faded-background round-corner">
-                                        <input type="radio" name="media" value="book" id="book"><label
-                                            class="radio-text" for="book">Book</label>
+                                    <div class="columns small-3 faded-background round-corner radio-boxes">
+                                        <input type="radio" name="media" value="book" id="book">
+                                        <label class="radio-text" for="book">Book</label>
                                     </div>
-                                    <div class="columns small-3 faded-background round-corner">
-                                        <input type="radio" name="media" value="video-game" id="video-game"><label
-                                            class="radio-text" for="video-game">Video Game</label>
+                                    <div class="columns small-3 faded-background round-corner radio-boxes">
+                                        <input type="radio" name="media" value="video-game" id="video-game">
+                                        <label class="radio-text" for="video-game">Video Game</label>
                                     </div>
-                                    <div class="columns small-3 faded-background round-corner">
-                                        <input type="radio" name="media" value="anime" id="anime"><label
-                                            class="radio-text" for="anime">Anime</label>
+                                    <div class="columns small-3 faded-background round-corner radio-boxes">
+                                        <input type="radio" name="media" value="anime" id="anime">
+                                        <label class="radio-text" for="anime">Anime</label>
                                     </div>
                                 </div>
 
@@ -85,11 +89,13 @@
                 </div>
             </div>
             <!--Saved Searches-->
-            <div class="grid-container faded-background-results">
-                <h3>Saved Searches:</h3>
+            <div class="grid-container faded-background-results saved-history">
+                <header id="saved-searches-header">
+                    <h1>Saved Searches:</h1>
+                </header>
                 <!--Buttons go here-->
-                <section>
-                    <a class="button alert" id="clear-button">Clear All</a>
+                <section class="align-center">
+                    <a class="button alert rounded" id="clear-button">Clear All</a>
                 </section>
                 <section id="saved-buttons">
 
