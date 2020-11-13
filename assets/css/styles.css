@@ -1,5 +1,11 @@
+header {
+  margin-top: 10rem;
+  margin-bottom: 5rem;
+}
+
 body {
   background-image: url(../images/greenbluepolybackground.jpg);
+  background-size: cover;
 }
 
 /* Search bar button */
