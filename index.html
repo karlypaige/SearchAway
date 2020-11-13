@@ -35,13 +35,7 @@
                         <label for="user-favorite">
                             <!-- Enter in the title and select if it is a movie, book, video game, or anime: -->
                         </label>
-                        <div class='grid-x right-align '>
-                            <p style='font-size: x-large'>Include Mature Content</p>
-                            <div class="switch tiny" style='padding-left: 10px;'>
-                                <input class="switch-input" type="checkbox" value="mature" id="mature">
-                                <label class="switch-paddle" style='height: 130%' for="mature"></label>
-                            </div>
-                        </div>
+
                         <div class="input-group input-group-rounded">
 
                             <input class="input-group-field submissionfield" id="user-favorite" style="font-size:35px;"
@@ -54,31 +48,44 @@
                                 </button>
                             </div>
                         </div>
-
-                        <p class="hidden" id="title-error">Not a valid title. Please enter in a valid title.</p>
-                        <fieldset class="align-center">
-                            <div class='grid-x'>
-                                <div class="columns small-3 faded-background round-corner">
-                                    <input type="radio" name="media" value="movie" id="movie"><label class="radio-text"for="movie">Movie</label>
-                                </div>
-                                <div class="columns small-3 faded-background round-corner">
-                                    <input type="radio" name="media" value="book" id="book"><label class="radio-text" for="book">Book</label>
-                                </div>
-                                <div class="columns small-3 faded-background round-corner">
-                                    <input type="radio" name="media" value="video-game" id="video-game"><label class="radio-text" for="video-game">Video Game</label>
-                                </div>
-                                <div class="columns small-3 faded-background round-corner">
-                                    <input type="radio" name="media" value="anime" id="anime"><label class="radio-text" for="anime">Anime</label>
-                                </div>
+                        <div class='grid-x right-align rounded-mature'>
+                            <p class='align-center' style='font-size: medium'>Include Mature Content</p>
+                            <div class="switch tiny align-center" style='padding-left: 10px;'>
+                                <input class="switch-input" type="checkbox" value="mature" id="mature">
+                                <label class="switch-paddle"  for="mature"></label>
                             </div>
-                        </fieldset>
+                        </div>
+
+                     
+                            <p class="hidden" id="title-error">Not a valid title. Please enter in a valid title.</p>
+                            <fieldset class="align-center">
+                                <div class='grid-x'>
+                                    <div class="columns small-3 faded-background round-corner">
+                                        <input type="radio" name="media" value="movie" id="movie"><label
+                                            class="radio-text" for="movie">Movie</label>
+                                    </div>
+                                    <div class="columns small-3 faded-background round-corner">
+                                        <input type="radio" name="media" value="book" id="book"><label
+                                            class="radio-text" for="book">Book</label>
+                                    </div>
+                                    <div class="columns small-3 faded-background round-corner">
+                                        <input type="radio" name="media" value="video-game" id="video-game"><label
+                                            class="radio-text" for="video-game">Video Game</label>
+                                    </div>
+                                    <div class="columns small-3 faded-background round-corner">
+                                        <input type="radio" name="media" value="anime" id="anime"><label
+                                            class="radio-text" for="anime">Anime</label>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                        </div>
 
 
-                    </div>
                 </div>
             </div>
             <!--Saved Searches-->
-            <div class="grid-container saved-history">
+            <div class="grid-container faded-background-results">
                 <h3>Saved Searches:</h3>
                 <!--Buttons go here-->
                 <section>
@@ -93,7 +100,7 @@
         <div class="results-section hidden">
             <div class="grid-container">
                 <h3>Here's what you chose:</h3>
-                <div class="cell" id="favorite-data">
+                <div class="cell faded-background" id="favorite-data">
                     <!--Information-->
                     <div class="grid-x">
                         <div class="cell medium-6">
@@ -115,7 +122,7 @@
             <div class="grid-container">
                 <h3>Here are some others that you may enjoy!</h3>
                 <div class="grid-x">
-                    <div class="medium-6 cell" id="movie-result">
+                    <div class="medium-6 cell faded-background-results" id="movie-result">
                         <h5>Movie</h5>
                         <!--Movie results here-->
                         <div class="grid-x">
@@ -134,7 +141,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="medium-6 cell" id="book-result">
+                    <div class="medium-6 cell faded-background-results" id="book-result">
                         <h5>Book</h5>
                         <!--Book results here-->
                         <div class="grid-x">
@@ -152,7 +159,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="medium-6 cell" id="video-game-result">
+                    <div class="medium-6 cell faded-background-results" id="video-game-result">
                         <h5>Video Game</h5>
                         <!--Video game results here-->
                         <div class="grid-x">
@@ -177,7 +184,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="medium-6 cell" id="anime-result">
+                    <div class="medium-6 cell faded-background-results" id="anime-result">
                         <h5>Anime</h5>
                         <!--Anime results here-->
                         <div class="grid-x">
