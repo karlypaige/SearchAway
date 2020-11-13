@@ -2,6 +2,10 @@ body {
   background-image: url(../images/greenbluepolybackground.jpg);
 }
 
+#Title {
+  font-size: 3rem;
+}
+
 /* Search bar button */
 .input-group-rounded .input-group-field {
     border-radius: 5000px 0 0 5000px;
@@ -49,6 +53,7 @@ body {
   text-align: center;
 }
 
+/* White/Blue div colorization */
 .faded-background {
   background-color: white;
   opacity: 0.75;
@@ -77,48 +82,29 @@ body {
   float: right;
 }
 
-
 .hidden {
   display: none;
 }
 
-#Title {
-  font-size: 3rem;
-}
-
+/* Radio button */
 .radio-text {
   font-size: 1.5rem;
   padding-top: 0.7rem;
   padding-bottom: 0.7rem;
 }
 
-
-
-
-
-
-/* #favorite-data {
-    background-color: plum;
+/* Favorite results */
+#favorite-data {
+  padding: 1rem;
 }
 
-#movie-result {
-    background-color: aquamarine;
+/* Results */
+.results-container {
+  padding: 1rem;
 }
-
-#book-result {
-    background-color: lightskyblue;
-}
-
-#video-game-result {
-    background-color: lightsalmon;
-}
-
-#anime-result {
-    background-color: goldenrod;
-} */
-
 
 #clear-button {
+  margin-left: 0.3rem;
   padding-left: 3rem;
   padding-right: 3rem;
 }
@@ -126,7 +112,6 @@ body {
 #saved-buttons{
   padding-bottom: 1rem;
 }
-
 
 /*Testing saved history*/
 .saved-history {
@@ -143,9 +128,7 @@ body {
   text-align: center;
 }
 
-
-
-/* SPINNER */
+/* Spinner animation */
 .spinner {
     margin: 100px auto 0;
     width: 70px;
@@ -187,3 +170,70 @@ body {
       transform: scale(1.0);
     }
   }
+
+/* Media queries for results page */
+@media only screen and (min-width: 1190px) {
+    #movie-results {
+    margin: 0 0.5rem 0.5rem 0;
+    width: 49.2%;
+  }
+
+  #book-result {
+    margin: 0 0 0.5rem 0.5rem;
+    width: 49.2%;
+  }
+
+  #video-game-result {
+    margin: 0.5rem 0.5rem 0 0;
+    width: 49.2%;
+  }
+    
+    #anime-result {
+      margin: 0.5rem 0 0 0.5rem;
+      width: 49.2%;
+    }
+}
+  
+@media only screen and (min-width: 1190px) {
+  #movie-result {
+    margin: 0 0.5rem 0.5rem 0;
+    width: 48%;
+  }
+    
+  #book-result {
+    margin: 0 0 0.5rem 0.5rem;
+    width: 48%;
+  }
+    
+  #video-game-result {
+    margin: 0.5rem 0.5rem 0 0;
+    width: 48%;
+  }
+    
+  #anime-result {
+    margin: 0.5rem 0 0 0.5rem;
+    width: 48%;
+  }
+}
+  
+@media only screen and (max-width: 900px) {
+  #movie-result {
+    margin: 1rem 0 1rem 0;
+    width: 100%;
+  }
+    
+  #book-result {
+    margin: 1rem 0 1rem 0;
+    width: 100%;
+  }
+    
+  #video-game-result {
+    margin: 1rem 0 1rem 0;
+    width: 100%;
+  }
+    
+  #anime-result {
+    margin: 1rem 0 1rem 0;
+    width: 100%;
+  }
+}
