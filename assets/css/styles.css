@@ -1,5 +1,11 @@
+header {
+  margin-top: 10rem;
+  margin-bottom: 5rem;
+}
+
 body {
-    background-image: url(../images/greenbluepolybackground.jpg);
+  background-image: url(../images/greenbluepolybackground.jpg);
+  background-size: cover;
 }
 
 /* Search bar button */
@@ -17,32 +23,50 @@ body {
 .rounded-mature {
   border-radius: 5000px;
     padding-left: 1rem;
-    background-color: rgb(248, 64, 64);
+    background-color: rgba(255, 73, 73, 0.85);
 }
 
+#mature-text{
+  font-size: 1.3rem;
+  float:left;
+  margin-left:1rem;
+  text-shadow: 0 0 5px #ffe6e6;
+}
+
+.rounded {
+  border-radius:5000px!important
+}
+
+.rounded .switch-paddle{
+  border-radius:5000px!important;
+}
+
+.rounded .switch-paddle:after{
+  border-radius:50%;
+}
 
 /* Input form height */
 .submissionfield { width: 100%; height: 100px; border: 1px solid #999999; padding: 5px; }
 
 /* Center align */
 .align-center {
-    display: block;
-    margin: 1.0em auto;
-    text-align: center;
+  display: block;
+  margin: 1.0em auto;
+  text-align: center;
 }
 
 .faded-background {
-    background-color: white;
-    opacity: 0.75;
+  background-color: white;
+  opacity: 0.75;
 }
 .faded-background:hover {
-    background-color: #1779BA;
-    opacity: 1.0;
+  background-color: #1779BA;
+  opacity: 1.0;
 }
 
 .faded-background:active {
-    background-color: rgb(55, 253, 204);
-    opacity: 1.0;
+  background-color: rgb(55, 253, 204);
+  opacity: 1.0;
 }
 
 .faded-background-results {
@@ -52,25 +76,31 @@ body {
 
 /* Edge rounded */
 .round-corner {
-    border-radius: 500px;
+  border-radius: 500px;
 }
 
 .right-align {
-    float: right;
+  float: right;
 }
 
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 #Title {
-    font-size: 3rem;
+  font-size: 3rem;
 }
 
 .radio-text {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
 }
+
+
+
+
 
 
 /* #favorite-data {
@@ -94,20 +124,32 @@ body {
 } */
 
 
-
 #clear-button {
-    margin-left: 0.3rem;
-    padding-left: 3rem;
-    padding-right: 3rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
+
+#saved-buttons{
+  padding-bottom: 1rem;
+}
+
 
 /*Testing saved history*/
 .saved-history {
-    background-color: wheat;
+  background-color: rgb(218, 218, 218);
 }
+
 .saved-result {
-    margin: 5px;
+  margin: 5px;
+  font-size: 1.25rem;
 }
+
+#saved-searches-header{
+  padding-top: 1rem;
+  text-align: center;
+}
+
+
 
 /* SPINNER */
 .spinner {
