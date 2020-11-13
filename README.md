@@ -31,8 +31,8 @@ Once you save the result, you will see a "Saved Searches" section with a button 
 
 
 #### Notes on Usage
-🍿 The search is currently only searching by one genre taken from the favorite title.
-🍿 There are 5 APIs being used:
+🍿 The search is currently only searching by one genre taken from the favorite title.\
+🍿 There are 5 APIs being used:\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔️[The Open Movie Databse API](http://www.omdbapi.com/)\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔️[The Movie Databse API](https://www.themoviedb.org/documentation/api)\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔️[Google Books API](https://developers.google.com/books)\
@@ -47,7 +47,7 @@ Becoming knowledgeable with the collaboration became a big part as well.  Learni
 
 
 ## How we can improve it
-We would want to improve the functionality to search for results by multiple parameters rather than just one genre.  Some of these would include:
+We would want to improve the functionality to search for results by multiple parameters rather than just one genre.  Some of these would include:\
 🍿 Multiple genres\
 🍿 Using keywords from the title\
 🍿 Using keywords from the plot\
