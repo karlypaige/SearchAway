@@ -11,9 +11,22 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-h1 {
+h1, h3 {
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
+  text-decoration: underline;
+}
+
+h3 {
+  max-width: 50rem;
+  background-color:lightsteelblue!important;
+  border-radius: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+h5 {
+  font-weight: 800;
   text-decoration: underline;
 }
 
@@ -27,7 +40,10 @@ h1 {
 }
 
 
-
+#saved-searches-heading {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 
 
 #user-favorite {
@@ -42,6 +58,17 @@ h1 {
   max-width: 60rem;
 }
 
+#favorite-title, #movie-title, #book-title, #video-game-title, #anime-title {
+  font-weight: 700;
+}
+
+.favorites-column-1 {
+  text-align: center;
+}
+
+.results-column-2 {
+  padding-left: 10px;
+}
 
 
 @media only screen and (min-width: 1190px) {
@@ -139,7 +166,9 @@ h1 {
 
 }
 
-
+.button-group a {
+  border: 0.3px solid lightgrey;
+}
 
 /* .radio-box {
   max-height: 1px!important;
@@ -162,12 +191,19 @@ h1 {
 
 /* Favorite results */
 #favorite-data {
+  max-width: 55rem;
+  margin-right: auto;
+  margin-left: auto;
   padding: 1rem;
+  border-radius: 5px;
+  border: 1px solid black;
 }
 
 /* Results */
 .results-container {
   padding: 1rem;
+  border-radius: 5px;
+  border: 1px solid black;
 }
 
 #clear-button {
@@ -186,6 +222,9 @@ h1 {
   margin-top: 5rem;
   padding-top: 0.1rem;
   max-width: 55rem;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+  border: 1px solid black;
 }
 
 .saved-result {
@@ -245,44 +284,44 @@ h1 {
 @media only screen and (min-width: 1190px) {
     #movie-results {
     margin: 0 0.5rem 0.5rem 0;
-    width: 49.2%;
+    max-width: 50%;
   }
 
   #book-result {
     margin: 0 0 0.5rem 0.5rem;
-    width: 49.2%;
+    max-width: 50%;
   }
 
   #video-game-result {
     margin: 0.5rem 0.5rem 0 0;
-    width: 49.2%;
+    max-width: 50%;
   }
     
     #anime-result {
       margin: 0.5rem 0 0 0.5rem;
-      width: 49.2%;
+      max-width: 50%;
     }
 }
   
 @media only screen and (min-width: 1190px) {
   #movie-result {
     margin: 0 0.5rem 0.5rem 0;
-    width: 48%;
+    width: 49%;
   }
     
   #book-result {
     margin: 0 0 0.5rem 0.5rem;
-    width: 48%;
+    width: 49%;
   }
     
   #video-game-result {
     margin: 0.5rem 0.5rem 0 0;
-    width: 48%;
+    width: 49%;
   }
     
   #anime-result {
     margin: 0.5rem 0 0 0.5rem;
-    width: 48%;
+    width: 49%;
   }
 }
   
