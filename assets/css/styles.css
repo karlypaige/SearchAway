@@ -1,16 +1,66 @@
 header {
-  margin-top: 10rem;
-  margin-bottom: 5rem;
+  margin: 10rem auto 5rem auto;
+  font-family: 'Poppins', sans-serif;
+  max-width: 65rem;
+
 }
 
 body {
   background-image: url(../images/greenbluepolybackground.jpg);
   background-size: cover;
+  font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  text-decoration: underline;
 }
 
 #Title {
   font-size: 3rem;
 }
+
+.logo {
+  width: 100%;
+  height: auto!important;
+}
+
+
+
+
+
+#user-favorite {
+  max-height: 55px!important;
+}
+#search {
+  max-height: 55px!important;
+  max-width: 100%;
+}
+
+#grid-resize {
+  max-width: 60rem;
+}
+
+
+
+@media only screen and (min-width: 1190px) {
+  #grid-resize {
+
+  }
+}
+
+@media only screen and (max-width: 1640px) {
+  #grid-resize {
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  #grid-resize {
+  }
+}
+
+
 
 /* Search bar button */
 .input-group-rounded .input-group-field {
@@ -28,13 +78,17 @@ body {
   border-radius: 5000px;
     padding-left: 1rem;
     background-color: rgba(255, 73, 73, 0.85);
+    margin: 0 auto 0 auto!important;
+  /* max-height: 50px; */
+  min-height: 2.75rem;
 }
 
 #mature-text{
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   float:left;
   margin-left:1rem;
   text-shadow: 0 0 5px #ffe6e6;
+  margin-top: 0.8rem!important;
 }
 
 .rounded {
@@ -82,7 +136,14 @@ body {
 /* Edge rounded */
 .round-corner {
   border-radius: 500px;
+
 }
+
+
+
+/* .radio-box {
+  max-height: 1px!important;
+} */
 
 .right-align {
   float: right;
@@ -94,9 +155,9 @@ body {
 
 /* Radio button */
 .radio-text {
-  font-size: 1.5rem;
-  padding-top: 0.7rem;
-  padding-bottom: 0.7rem;
+  font-size: 1.3rem;
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
 }
 
 /* Favorite results */
@@ -122,6 +183,9 @@ body {
 /*Testing saved history*/
 .saved-history {
   background-color: rgb(218, 218, 218);
+  margin-top: 5rem;
+  padding-top: 0.1rem;
+  max-width: 55rem;
 }
 
 .saved-result {
