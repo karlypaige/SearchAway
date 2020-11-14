@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <!-- Icons from Font Awesome -->
     <script src="https://kit.fontawesome.com/f21b4b2424.js" crossorigin="anonymous"></script>
+    <!-- Poppins Google font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -25,7 +29,7 @@
 
     <main>
         <div class="search-section">
-            <div class="grid-container">
+            <div class="grid-container" id="grid-resize">
                 <div class="grid-y grid-padding-y">
                     <div class="medium-6 cell">
                         <label for="user-favorite">
@@ -34,59 +38,60 @@
 
                         <div class="input-group input-group-rounded">
 
-                            <input class="input-group-field submissionfield" id="user-favorite" style="font-size:1.8rem;"
-                                type="text" placeholder="Title of your favorite movie, book, video game, or anime">
+                            <input class="input-group-field submissionfield" id="user-favorite"
+                                style="font-size:1.8rem;" type="text" placeholder="Favorite title">
                             <div class="input-group-button">
                                 <button class="button" id="search" type="submit" value="Submit" style="font-size:1.4rem"
                                     data-open="error-modal">
                                     <i class="fas fa-search"></i>
-                                    Recommend!
+                                    <!-- Recommend! -->
                                 </button>
                             </div>
                         </div>
+
+
+
+                        <p class="hidden" id="title-error">Not a valid title. Please enter in a valid title.</p>
+                        <fieldset class="align-center">
+                            <div class='grid-x' >
+                                <div class="columns medium-3 small-6 faded-background round-corner radio-boxes">
+                                    <input type="radio" name="media" value="movie" id="movie">
+                                    <label class="radio-text" for="movie">Movie</label>
+                                </div>
+                                <div class="columns medium-3 small-6 faded-background round-corner radio-boxes">
+                                    <input type="radio" name="media" value="book" id="book">
+                                    <label class="radio-text" for="book">Book</label>
+                                </div>
+                                <div class="columns medium-3 small-6 faded-background round-corner radio-boxes">
+                                    <input type="radio" name="media" value="video-game" id="video-game">
+                                    <label class="radio-text" for="video-game">Video Game</label>
+                                </div>
+                                <div class="columns medium-3 small-6 faded-background round-corner radio-boxes ">
+                                    <input type="radio" name="media" value="anime" id="anime">
+                                    <label class="radio-text" for="anime">Anime</label>
+                                </div>
+                            </div>
+
+                        </fieldset>
                         <div class='grid-x'>
-                            <section class="small-3 columns rounded-mature align-center">
+                            <section class="medium-4 small-6 columns rounded-mature align-center">
                                 <p class='align-center' id="mature-text">Mature Content</p>
-                                <div class="switch small" style='margin-top:1.3rem'>
+                                <div class="switch small" style='margin-top:0.8rem'>
                                     <input class="switch-input" type="checkbox" value="mature" id="mature">
                                     <label class="switch-paddle rounded"  for="mature"></label>
                                 </div>
                             </section>
                         </div>
-
-                     
-                            <p class="hidden" id="title-error">Not a valid title. Please enter in a valid title.</p>
-                            <fieldset class="align-center">
-                                <div class='grid-x'>
-                                    <div class="columns small-3 faded-background round-corner radio-boxes">
-                                        <input type="radio" name="media" value="movie" id="movie">
-                                        <label class="radio-text" for="movie">Movie</label>
-                                    </div>
-                                    <div class="columns small-3 faded-background round-corner radio-boxes">
-                                        <input type="radio" name="media" value="book" id="book">
-                                        <label class="radio-text" for="book">Book</label>
-                                    </div>
-                                    <div class="columns small-3 faded-background round-corner radio-boxes">
-                                        <input type="radio" name="media" value="video-game" id="video-game">
-                                        <label class="radio-text" for="video-game">Video Game</label>
-                                    </div>
-                                    <div class="columns small-3 faded-background round-corner radio-boxes">
-                                        <input type="radio" name="media" value="anime" id="anime">
-                                        <label class="radio-text" for="anime">Anime</label>
-                                    </div>
-                                </div>
-
-                            </fieldset>
-                        </div>
+                    </div>
 
 
                 </div>
             </div>
             <!--Saved Searches-->
             <div class="grid-container faded-background-results saved-history">
-                <header id="saved-searches-header">
-                    <h1>Saved Searches:</h1>
-                </header>
+
+                    <h1 class='align-center'>Saved Searches:</h1>
+
                 <!--Buttons go here-->
                 <section class="align-center">
                     <a class="button alert rounded" id="clear-button">Clear All</a>
