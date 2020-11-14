@@ -130,7 +130,7 @@ function bookResultSection(bookResult) {
     
     //Pass this title in case it needs to be saved to local storage
     results("book", bookResult.title);
-    console.log("BOOK RESULT: " + bookResult.title);
+    
     //display results
     $("#book-title").text(bookResult.title);
     $("#book-poster").attr("src", bookResult.imageLinks.thumbnail);
