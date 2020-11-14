@@ -1,72 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Away!</title>
+    <title>SearchAway!</title>
+    <!-- Browser tab icon -->
+    <link rel="icon" href="https://assets.stickpng.com/images/59cfc4d2d3b1936210a5ddc7.png" type="image">
     <!--Foundation-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
+        integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/motion-ui@1.2.3/dist/motion-ui.min.css" />
     <!--Our stylesheet-->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <!-- Icons from Font Awesome -->
+    <script src="https://kit.fontawesome.com/f21b4b2424.js" crossorigin="anonymous"></script>
+    <!-- Poppins Google font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
-
     <header>
-        <div class="title-bar">
-            <div class="title-bar-left">
-                <a href="#">BCKS</a>
-            </div>
-        </div>
+        <img class="logo align-center" src="assets/images/Search-Away.png" alt="SearchAway logo">
     </header>
 
 
     <main>
         <div class="search-section">
-            <h1>Welcome!</h1>
-            <div class="grid-container">
+            <div class="grid-container" id="grid-resize">
                 <div class="grid-y grid-padding-y">
                     <div class="medium-6 cell">
                         <label for="user-favorite">
-                            Enter in the title and select if it is a movie, book, video game, or anime:
+                            <!-- Enter in the title and select if it is a movie, book, video game, or anime: -->
                         </label>
-                        <input id="user-favorite" type="text" placeholder="Title of your favorite movie, book, video game, or anime">
-                        <fieldset>
-                            <input type="radio" name="media" value="movie" id="movie"><label for="movie">Movie</label>
-                            <input type="radio" name="media" value="book" id="book"><label for="book">Book</label>
-                            <input type="radio" name="media" value="video-game" id="video-game"><label for="video-game">Video Game</label>
-                            <input type="radio" name="media" value="anime" id="anime"><label for="anime">Anime</label>
+
+                        <div class="input-group input-group-rounded">
+
+                            <input class="input-group-field submissionfield" id="user-favorite"
+                                style="font-size:1.8rem;" type="text" placeholder="Favorite title">
+                            <div class="input-group-button">
+                                <button class="button" id="search" type="submit" value="Submit" style="font-size:1.4rem"
+                                    data-open="error-modal">
+                                    <i class="fas fa-search"></i>
+                                    <!-- Recommend! -->
+                                </button>
+                            </div>
+                        </div>
+
+
+
+                        <p class="hidden" id="title-error">Not a valid title. Please enter in a valid title.</p>
+                        <fieldset class="align-center">
+                            <div class='grid-x' >
+                                <div class="columns medium-3 small-6 faded-background round-corner radio-boxes">
+                                    <input type="radio" name="media" value="movie" id="movie">
+                                    <label class="radio-text" for="movie">Movie</label>
+                                </div>
+                                <div class="columns medium-3 small-6 faded-background round-corner radio-boxes">
+                                    <input type="radio" name="media" value="book" id="book">
+                                    <label class="radio-text" for="book">Book</label>
+                                </div>
+                                <div class="columns medium-3 small-6 faded-background round-corner radio-boxes">
+                                    <input type="radio" name="media" value="video-game" id="video-game">
+                                    <label class="radio-text" for="video-game">Video Game</label>
+                                </div>
+                                <div class="columns medium-3 small-6 faded-background round-corner radio-boxes ">
+                                    <input type="radio" name="media" value="anime" id="anime">
+                                    <label class="radio-text" for="anime">Anime</label>
+                                </div>
+                            </div>
+
                         </fieldset>
-                        <label for="mature">Include mature content:                         <input type="checkbox" value="mature" id="mature"></label>
+                        <div class='grid-x'>
+                            <section class="medium-4 small-6 columns rounded-mature align-center">
+                                <p class='align-center' id="mature-text">Mature Content</p>
+                                <div class="switch small" style='margin-top:0.8rem'>
+                                    <input class="switch-input" type="checkbox" value="mature" id="mature">
+                                    <label class="switch-paddle rounded"  for="mature"></label>
+                                </div>
+                            </section>
+                        </div>
                     </div>
-                </div>
-                <fieldset class="cell large-6">
-                    <button class="button" id="search" type="submit" value="Submit">Find me recommendations!</button>
-                </fieldset>
-            </div>
-            <!--Saved Searches-->
-            <div class="grid-container saved-history">
-                <h3>Saved Searches:</h3>
-                <!--Buttons go here-->
-                <div id="saved-buttons">
+
 
                 </div>
+            </div>
+            <!--Saved Searches-->
+            <div class="grid-container faded-background-results saved-history">
+
+                    <h1 class='align-center' id="saved-searches-heading">Saved Searches:</h1>
+
+                <!--Buttons go here-->
+                <section id="saved-buttons">
+
+                </section>
+                <section class="align-center">
+                    <a class="button alert rounded" id="clear-button">Clear All</a>
+                </section>
             </div>
         </div>
 
         <div class="results-section hidden">
             <div class="grid-container">
-                <h3>Here's what you chose:</h3>
-                <div class="cell" id="favorite-data">
+                <h3 class='align-center faded-background-results'>Here's what you chose:</h3>
+                <div class="cell faded-background-results" id="favorite-data">
                     <!--Information-->
                     <div class="grid-x">
-                        <div class="cell medium-6">
+                        <div class="cell medium-6 favorites-column-1">
                             <p id="favorite-title">Title</p>
                             <img id="favorite-poster" src="https://via.placeholder.com/350x400" alt="placeholder">
                         </div>
                         <div class="cell medium-6">
                             <p id="favorite-rating">Rated:</p>
-                            <p id="favorite-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
+                            <p id="favorite-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore
+                                iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae! Ducimus
+                                veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
                             <p id="favorite-score">Score:</p>
                             <a href="" id="favorite-full-url" target="_blank">Click here for more details</a>
                         </div>
@@ -75,9 +125,9 @@
             </div>
             <!--Displays results of recommended-->
             <div class="grid-container">
-                <h3>Here are some others that you may enjoy!</h3>
+                <h3 class='align-center faded-background-results'>Here are some others that you may enjoy!</h3>
                 <div class="grid-x">
-                    <div class="medium-6 cell" id="movie-result">
+                    <div class="medium-6 cell faded-background-results results-container" id="movie-result">
                         <h5>Movie</h5>
                         <!--Movie results here-->
                         <div class="grid-x">
@@ -85,15 +135,20 @@
                                 <p id="movie-title">Title</p>
                                 <img id="movie-poster" src="https://via.placeholder.com/350x400" alt="placeholder">
                             </div>
-                            <div class="cell medium-6">
+                            <div class="cell medium-6 results-column-2">
                                 <p id="movie-rating">Rated:</p>
-                                <p id="movie-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
+                                <p id="movie-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                                    Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab
+                                    molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita,
+                                    nemo aut.</p>
                                 <p id="movie-score">Score:</p>
                                 <a href="" id="movie-url" target="_blank">Click here for more details</a>
                             </div>
                         </div>
                     </div>
-                    <div class="medium-6 cell" id="book-result">
+                    <!-- <div class="medium-1 cell">
+                    </div> -->
+                    <div class="medium-6 cell faded-background-results results-container" id="book-result">
                         <h5>Book</h5>
                         <!--Book results here-->
                         <div class="grid-x">
@@ -101,15 +156,19 @@
                                 <p id="book-title">Title</p>
                                 <img id="book-poster" src="https://via.placeholder.com/350x400" alt="placeholder">
                             </div>
-                            <div class="cell medium-6">
+                            <div class="cell medium-6 results-column-2">
                                 <p id="book-rating">Rated:</p>
-                                <p id="book-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
+                                <p id="book-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore
+                                    iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae!
+                                    Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
                                 <p id="book-score">Score:</p>
                                 <a href="" id="book-full-url" target="_blank">Click here for more details</a>
                             </div>
                         </div>
                     </div>
-                    <div class="medium-6 cell" id="video-game-result">
+                </div>
+                <div class="grid-x">
+                    <div class="medium-6 cell faded-background-results results-container" id="video-game-result">
                         <h5>Video Game</h5>
                         <!--Video game results here-->
                         <div class="grid-x">
@@ -117,15 +176,26 @@
                                 <p id="video-game-title">Title</p>
                                 <img id="video-game-poster" src="https://via.placeholder.com/350x400" alt="placeholder">
                             </div>
-                            <div class="cell medium-6">
+                            <div class="cell medium-6 results-column-2">
                                 <p id="video-game-rating">Rated:</p>
-                                <p id="video-game-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
+                                <p id="video-game-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                                    Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab
+                                    molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita,
+                                    nemo aut.</p>
                                 <p id="video-game-score">Score:</p>
                                 <a href="" id="video-game-full-url" target="_blank">Click here for more details</a>
+                                <!-- Spinner for page loading -->
+                                <div class="spinner" id="video-game-spinner">
+                                    <div class="bounce1"></div>
+                                    <div class="bounce2"></div>
+                                    <div class="bounce3"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="medium-6 cell" id="anime-result">
+                    <!-- <div class="medium-1 cell">
+                    </div> -->
+                    <div class="medium-6 cell faded-background-results results-container" id="anime-result">
                         <h5>Anime</h5>
                         <!--Anime results here-->
                         <div class="grid-x">
@@ -133,9 +203,12 @@
                                 <p id="anime-title">Title</p>
                                 <img id="anime-poster" src="https://via.placeholder.com/350x400" alt="placeholder">
                             </div>
-                            <div class="cell medium-6">
+                            <div class="cell medium-6 results-column-2">
                                 <p id="anime-rating">Rated:</p>
-                                <p id="anime-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita, nemo aut.</p>
+                                <p id="anime-plot">Plot: Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                                    Dolore iure aspernatur ducimus quo nostrum, animi veritatis obcaecati ut ab
+                                    molestiae! Ducimus veritatis itaque animi voluptas perspiciatis dicta! Expedita,
+                                    nemo aut.</p>
                                 <p id="anime-score">Score:</p>
                                 <a href="" id="anime-full-url" target="_blank">Click here for more details</a>
                             </div>
@@ -143,15 +216,35 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="grid-container">
                 <div class="grid-x">
-                    <div class="button-group">
-                        <a class="button" id="save-result">Save this result!</a>
-                        <a class="button" id="go-back">Go back to the search page!</a>
-                    </div>    
+                    <div class="button-group align-center">
+                        <a class="button rounded" id="save-result">Save this result!</a>
+                        <a class="button rounded" id="go-back">Go back to the search page!</a>
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <div class="reveal" id="search-error-modal" data-reveal data-animation-in="fade-in"
+            data-animation-out="fade-out" data-close-on-click="true">
+            <h1>Woah, there!</h1>
+            <p class='lead'>The search field is either empty or is invalid, please make sure it is completely filled
+                out.</p>
+            <button class="close-button" data-close aria-label="Close reveal" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="reveal" id="media-error-modal" data-reveal data-animation-in="fade-in" data-animation-out="fade-out"
+            data-close-on-click="true">
+            <h1>Hey there!</h1>
+            <p class='lead'>A media type has not been selected yet. Please choose a media type using the radio buttons
+                underneath the search bar.</p>
+            <button class="close-button" data-close aria-label="Close reveal" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
 
     </main>
@@ -166,10 +259,11 @@
     <!--Foundation-->
     <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"></script>
     <!--Our scripts-->
-    <script src="books.js"></script>
-    <script src="movies.js"></script>
-    <script src="video_game.js"></script>
-    <script src="anime.js"></script>
-    <script src="script.js"></script>
+    <script src="assets/js/books.js"></script>
+    <script src="assets/js/movies.js"></script>
+    <script src="assets/js/video_game.js"></script>
+    <script src="assets/js/anime.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
+
 </html>

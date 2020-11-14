@@ -1,0 +1,348 @@
+header {
+  margin: 10rem auto 5rem auto;
+  font-family: 'Poppins', sans-serif;
+  max-width: 65rem;
+
+}
+
+body {
+  background-image: url(../images/greenbluepolybackground.jpg);
+  background-size: cover;
+  font-family: 'Poppins', sans-serif;
+}
+
+h1, h3 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+h3 {
+  max-width: 50rem;
+  background-color:lightsteelblue!important;
+  border-radius: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+h5 {
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+#Title {
+  font-size: 3rem;
+}
+
+.logo {
+  width: 100%;
+  height: auto!important;
+}
+
+
+#saved-searches-heading {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+
+#user-favorite {
+  max-height: 55px!important;
+}
+#search {
+  max-height: 55px!important;
+  max-width: 100%;
+}
+
+#grid-resize {
+  max-width: 60rem;
+}
+
+#favorite-title, #movie-title, #book-title, #video-game-title, #anime-title {
+  font-weight: 700;
+}
+
+.favorites-column-1 {
+  text-align: center;
+}
+
+.results-column-2 {
+  padding-left: 10px;
+}
+
+
+@media only screen and (min-width: 1190px) {
+  #grid-resize {
+
+  }
+}
+
+@media only screen and (max-width: 1640px) {
+  #grid-resize {
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  #grid-resize {
+  }
+}
+
+
+
+/* Search bar button */
+.input-group-rounded .input-group-field {
+    border-radius: 5000px 0 0 5000px;
+    padding-left: 1rem;
+  }
+  
+  .input-group-rounded .input-group-button .button {
+    border-radius: 0 5000px 5000px 0;
+    font-size: 0.8rem;
+  }
+
+/* Rounded mature button */
+.rounded-mature {
+  border-radius: 5000px;
+    padding-left: 1rem;
+    background-color: rgba(255, 73, 73, 0.85);
+    margin: 0 auto 0 auto!important;
+  /* max-height: 50px; */
+  min-height: 2.75rem;
+}
+
+#mature-text{
+  font-size: 1.1rem;
+  float:left;
+  margin-left:1rem;
+  text-shadow: 0 0 5px #ffe6e6;
+  margin-top: 0.8rem!important;
+}
+
+.rounded {
+  border-radius:5000px!important
+}
+
+.rounded .switch-paddle{
+  border-radius:5000px!important;
+}
+
+.rounded .switch-paddle:after{
+  border-radius:50%;
+}
+
+/* Input form height */
+.submissionfield { width: 100%; height: 100px; border: 1px solid #999999; padding: 5px; }
+
+/* Center align */
+.align-center {
+  display: block;
+  margin: 1.0em auto;
+  text-align: center;
+}
+
+/* White/Blue div colorization */
+.faded-background {
+  background-color: white;
+  opacity: 0.75;
+}
+.faded-background:hover {
+  background-color: #1779BA;
+  opacity: 1.0;
+}
+
+.faded-background:active {
+  background-color: rgb(55, 253, 204);
+  opacity: 1.0;
+}
+
+.faded-background-results {
+  background-color: white;
+  opacity: 0.9;
+}
+
+/* Edge rounded */
+.round-corner {
+  border-radius: 500px;
+
+}
+
+.button-group a {
+  border: 0.3px solid lightgrey;
+}
+
+/* .radio-box {
+  max-height: 1px!important;
+} */
+
+.right-align {
+  float: right;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Radio button */
+.radio-text {
+  font-size: 1.3rem;
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+}
+
+/* Favorite results */
+#favorite-data {
+  max-width: 55rem;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 1rem;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+/* Results */
+.results-container {
+  padding: 1rem;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+#clear-button {
+  margin-left: 0.3rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+#saved-buttons{
+  padding-bottom: 1rem;
+}
+
+/*Testing saved history*/
+.saved-history {
+  background-color: rgb(218, 218, 218);
+  margin-top: 5rem;
+  padding-top: 0.1rem;
+  max-width: 55rem;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+  border: 1px solid black;
+}
+
+.saved-result {
+  margin: 5px;
+  font-size: 1.25rem;
+}
+
+#saved-searches-header{
+  padding-top: 1rem;
+  text-align: center;
+}
+
+/* Spinner animation */
+.spinner {
+    margin: 100px auto 0;
+    width: 70px;
+    text-align: center;
+  }
+  
+  .spinner > div {
+    width: 18px;
+    height: 18px;
+    background-color: #333;
+  
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  }
+  
+  .spinner .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+  }
+  
+  .spinner .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+  }
+  
+  @-webkit-keyframes sk-bouncedelay {
+    0%, 80%, 100% { -webkit-transform: scale(0) }
+    40% { -webkit-transform: scale(1.0) }
+  }
+  
+  @keyframes sk-bouncedelay {
+    0%, 80%, 100% { 
+      -webkit-transform: scale(0);
+      transform: scale(0);
+    } 40% { 
+      -webkit-transform: scale(1.0);
+      transform: scale(1.0);
+    }
+  }
+
+/* Media queries for results page */
+@media only screen and (min-width: 1190px) {
+    #movie-results {
+    margin: 0 0.5rem 0.5rem 0;
+    max-width: 50%;
+  }
+
+  #book-result {
+    margin: 0 0 0.5rem 0.5rem;
+    max-width: 50%;
+  }
+
+  #video-game-result {
+    margin: 0.5rem 0.5rem 0 0;
+    max-width: 50%;
+  }
+    
+    #anime-result {
+      margin: 0.5rem 0 0 0.5rem;
+      max-width: 50%;
+    }
+}
+  
+@media only screen and (min-width: 1190px) {
+  #movie-result {
+    margin: 0 0.5rem 0.5rem 0;
+    width: 49%;
+  }
+    
+  #book-result {
+    margin: 0 0 0.5rem 0.5rem;
+    width: 49%;
+  }
+    
+  #video-game-result {
+    margin: 0.5rem 0.5rem 0 0;
+    width: 49%;
+  }
+    
+  #anime-result {
+    margin: 0.5rem 0 0 0.5rem;
+    width: 49%;
+  }
+}
+  
+@media only screen and (max-width: 900px) {
+  #movie-result {
+    margin: 1rem 0 1rem 0;
+    width: 100%;
+  }
+    
+  #book-result {
+    margin: 1rem 0 1rem 0;
+    width: 100%;
+  }
+    
+  #video-game-result {
+    margin: 1rem 0 1rem 0;
+    width: 100%;
+  }
+    
+  #anime-result {
+    margin: 1rem 0 1rem 0;
+    width: 100%;
+  }
+}

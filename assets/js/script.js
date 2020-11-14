@@ -1,3 +1,5 @@
+$(document).foundation();
+
 //Variables for user's pick
 let userFavorite; 
 let media;
@@ -10,6 +12,10 @@ let saveVideoGameResult = '';
 let saveAnimeResult = '';
 let newSavedButton;
 let checkUserFavorite;
+let addI = 1; //For button ID
+
+//All genre array to use for multiple scripts
+var allGenreArray = ['action','adventure','comedy','crime','drama','family','fantasy','history','horror','mystery','romance','science-fiction','thriller','war','western'];
 
 
 //This will run when the user enters in values into the form and clicks on "Find me recommendations"
@@ -18,15 +24,19 @@ function searchFavorite(event) {
     event.preventDefault();
 
     //Stores user's title and media type from text input and radio buttons
-    userFavorite = $('#user-favorite').val();
-    media = $('fieldset input:checked').val();
-    //Confirms to search for a new result
-    newSearch = true;
-    //To use for local storage (saveResult function)
-    checkUserFavorite = userFavorite;
-    
-    //Call function to display data into the favorite box
-    displayFavoriteBox(media,userFavorite,newSearch);
+    userFavorite = $('#user-favorite').val().trim();
+    if($("#user-favorite").val()===""){
+        $("#search-error-modal").foundation('open');
+    } else{
+        media = $('fieldset input:checked').val();
+        //Confirms to search for a new result
+        newSearch = true;
+        //To use for local storage (saveResult function)
+        checkUserFavorite = userFavorite;
+        
+        //Call function to display data into the favorite box
+        displayFavoriteBox(media,userFavorite,newSearch);
+    };
 };
 
 
@@ -52,12 +62,10 @@ function displayFavoriteBox(mediatype,favorite,newSearchTrue){
             $('.search-section').addClass('hidden');
             $('.results-section').removeClass('hidden');
             favoriteAnime(favorite,newSearchTrue);
-            break; 
+            break;
         default:
-            //For testing purposes
-            $('.search-section').addClass('hidden');
-            $('.results-section').removeClass('hidden');
-            //Add error message later
+            $("#media-error-modal").foundation('open');
+            break;
     };
 };
 
@@ -77,6 +85,9 @@ function goBackToSearch(event) {
     //Reset save button
     $('#save-result').prop('disabled', false);
     $('#save-result').attr('disabled', false);
+
+    //Remove error message, if displayed
+    $('#title-error').addClass('hidden');
 
     //Display new saved results
     displaySavedButtons();
@@ -106,8 +117,6 @@ function results(mediatype, title){
 
 //This will run if the user clicks to save the result.  This will save to local storage and generate a button on the search section.
 function saveResult() {
-    //Variables
-    let addI = 1; //For button ID
 
     //This prevents a user from clicking the save button multiple times
     if($('#save-result').prop('disabled')){
@@ -123,7 +132,7 @@ function saveResult() {
     
     //Create a new button and add classes, ID, and text
     newSavedButton = $('<button>');
-    newSavedButton.addClass('button saved-result')
+    newSavedButton.addClass('button saved-result rounded')
     newSavedButton.attr('id', checkUserFavorite);
     newSavedButton.html(checkUserFavorite);
     //Prepend the new button to the saved
@@ -132,7 +141,7 @@ function saveResult() {
 
     //Local Storage
     //Add the results as an object 
-    let addSavedButton = {button: checkUserFavorite, title: userFavorite, media: media, movie: savedMovieResult}; //, book: savedBookResult, videoGame: savedVideoGameResult, anime: savedAnimeResult
+    let addSavedButton = {button: checkUserFavorite, title: userFavorite, media: media, movie: savedMovieResult, videoGame: savedVideoGameResult, anime: savedAnimeResult, book: savedBookResult};
     
     //Get current local storage
     savedHistory = JSON.parse(localStorage.getItem("allSavedTitles"));
@@ -157,7 +166,7 @@ function saveResult() {
 function displaySavedButtons(){
     //Empties the saved searches section
     $('#saved-buttons').empty();
-    
+
     //Get objects from local storage
     let savedHistory = JSON.parse(localStorage.getItem("allSavedTitles"));
     //if nothing in localStorage, then keep saved searches hidden
@@ -169,7 +178,7 @@ function displaySavedButtons(){
         $('.saved-history').removeClass('hidden');
         for(i = 0; i < savedHistory.length; i++){
             newSavedButton = $('<button>');
-            newSavedButton.addClass('button saved-result')
+            newSavedButton.addClass('button saved-result rounded')
             let savedButtonName = savedHistory[i].button;
             newSavedButton.attr('id', savedButtonName)
             newSavedButton.html(savedButtonName);
@@ -180,6 +189,12 @@ function displaySavedButtons(){
 };
 
 
+function clearSavedButtons(){
+    localStorage.removeItem("allSavedTitles");
+    displaySavedButtons();
+};
+
+
 //This will run once one of the saved-result buttons are clicked.  It will pull the title results that were saved, and display them in the results section
 function displaySavedResult(event) {
 
@@ -187,9 +202,13 @@ function displaySavedResult(event) {
     let savedTitle, savedMedia, savedMovie, savedBook, savedVideoGame, savedAnime;
 
     //If a button was not clicked
-    if($(event.target).attr('class') !== 'button saved-result'){
+    if($(event.target).attr('class') !== 'button saved-result rounded'){
         return;
     };
+
+    //Disable save button so duplicate button doesn't generate
+    $('#save-result').prop('disabled', true);
+    $('#save-result').attr('disabled', true);
 
     //If a button is clicked, store the ID of that button
     let savedButtonClicked = '';
@@ -205,9 +224,9 @@ function displaySavedResult(event) {
             savedMedia = savedHistory[i].media;
             //For media results needing to display
             savedMovie = savedHistory[i].movie;
-            //savedBook = savedHistory[i].book;
-            //savedVideoGame = savedHistory[i].videoGame;
-            //savedAnime = savedHistory[i].anime;
+            savedBook = savedHistory[i].book;
+            savedVideoGame = savedHistory[i].videoGame;
+            savedAnime = savedHistory[i].anime;
         };
     };
 
@@ -218,9 +237,9 @@ function displaySavedResult(event) {
     displayFavoriteBox(savedMedia,savedTitle);
     //For results-section
     displaySavedMovieResult(savedMovie);
-    //displaySavedBookResult(savedBook);
-    //displaySavedVideoGameResult(savedVideoGame);
-    //displaySavedAnimeResult(savedAnime);
+    displaySavedBookResult(savedBook);
+    displaySavedVideoGameResult(savedVideoGame);
+    displaySavedAnimeResult(savedAnime);
 };
 
 //Run when page opens to display any buttons based on what is saved in local storage
@@ -237,3 +256,11 @@ $('#save-result').click(saveResult);
 
 //If a saved-title button is clicked:
 $('#saved-buttons').click(displaySavedResult);
+
+//If "Clear All" button is clicked:
+$('#clear-button').click(clearSavedButtons);
+
+// Allows the area around the text to be selected to the corresponding media
+$('.radio-boxes').click((event) => {
+    $(event.target).children("input").prop("checked",true);
+});
