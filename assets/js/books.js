@@ -130,7 +130,7 @@ function bookResultSection(bookResult) {
     
     //Pass this title in case it needs to be saved to local storage
     results("book", bookResult.title);
-
+    console.log("BOOK RESULT: " + bookResult.title);
     //display results
     $("#book-title").text(bookResult.title);
     $("#book-poster").attr("src", bookResult.imageLinks.thumbnail);
@@ -149,8 +149,9 @@ function displaySavedBookResult(savedBook){
         url: recBookURL,
         method: "GET"
     }).then(function(responseResult) {
+        
         //Call function to display the results
-        bookResultSection(responseResult);
+        bookResultSection(responseResult.items[0].volumeInfo);
         
     });
 };
