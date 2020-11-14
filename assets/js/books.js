@@ -1,3 +1,4 @@
+//global scope variables for access to all functions
 var apiKey="AIzaSyBSs5kWswhDUiDMYdYxtnVKl8h-wbTTxRw";
 var allGenreArray = ['action','adventure','comedy','crime','drama','family','fantasy','history','horror','mystery','romance','science-fiction','thriller','war','western'];
 var bookGenreArray = [
@@ -18,12 +19,11 @@ var bookGenreArray = [
 /*western*/         ['Western']
 ];
     
-
+//function searches and displays book title based on user input
 function favoriteBook(userFavorite, newSearch) {
 
     var title=userFavorite.trim();  
     var queryURL="https://www.googleapis.com/books/v1/volumes?q="+ title + "&maxResults=" + 1 + "&key=" + apiKey;
-
 
     $.ajax({
         url: queryURL,
@@ -41,15 +41,14 @@ function favoriteBook(userFavorite, newSearch) {
         $("#favorite-score").text("Average book rating: " + favorite.averageRating);
         $("#favorite-full-url").attr("href", favorite.canonicalVolumeLink);
         
+        //If a new search, find a result (if not a new search, will want to display saved result from local storage- separate function)
         if(newSearch){
             pickGenreFromBook(favorites);
         };
     });
 };
 
-
-//https://www.googleapis.com/books/v1/volumes?q=+subject:Young_Adult
-
+//convert book category to genre from allGenreArray and pass it to other media functions to display results
 function pickGenreFromBook(obj){
     var bookGenre = obj.items[0].volumeInfo.categories[0];
     var passedGenre;
@@ -80,12 +79,22 @@ function pickGenreFromBook(obj){
 
 }
 
+//convert passed genre to book category and call display function to display results
 function searchBooksByGenre(genre) {
-
+    
     var apiKey="AIzaSyBSs5kWswhDUiDMYdYxtnVKl8h-wbTTxRw";
     let bookGenre = '';
 
-    var queryGenre="https://www.googleapis.com/books/v1/volumes?q=+subject:" + genre + "&maxResults=" + 40 + "&key=" + apiKey;
+    //convert passed genre to book genre
+    for (var pg=0; pg<allGenreArray.length; pg++) {
+        if (genre === allGenreArray[pg]){
+                var ind = Math.floor(Math.random() * bookGenreArray[pg].length);
+                bookGenre = bookGenreArray[pg][ind];
+        }
+    }
+
+    //to add variety - search for max allowed results (40) and randomly select a result to display
+    var queryGenre="https://www.googleapis.com/books/v1/volumes?q=+subject:" + bookGenre + "&maxResults=" + 40 + "&key=" + apiKey;
 
     $.ajax({
         url: queryGenre,
@@ -107,17 +116,18 @@ function searchBooksByGenre(genre) {
             return book;
         }
 
+        //call function and store results
         newBook = findAndUpdateBook();
-        
+        //pass results to display 
         bookResultSection(newBook);
 
     });
     
 };
 
+//call this function to display results of book search in results section
 function bookResultSection(bookResult) {
-    console.log(bookResult);
-
+    
     //Pass this title in case it needs to be saved to local storage
     results("book", bookResult.title);
 
@@ -130,9 +140,9 @@ function bookResultSection(bookResult) {
     $("#book-full-url").attr("href", bookResult.canonicalVolumeLink);
 }
 
-//This will display the movie result that was saved to a button from local storage
+//This will display the book result that was saved to a button from local storage
 function displaySavedBookResult(savedBook){
-    console.log("SAVED BOOK IS: " + savedBook);
+    
     let recBookURL = "https://www.googleapis.com/books/v1/volumes?q="+ savedBook + "&maxResults=" + 1 + "&key=" + apiKey;
 
     $.ajax({
