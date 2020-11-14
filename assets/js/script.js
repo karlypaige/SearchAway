@@ -141,7 +141,7 @@ function saveResult() {
 
     //Local Storage
     //Add the results as an object 
-    let addSavedButton = {button: checkUserFavorite, title: userFavorite, media: media, movie: savedMovieResult, videoGame: savedVideoGameResult, anime: savedAnimeResult}; //, book: savedBookResult
+    let addSavedButton = {button: checkUserFavorite, title: userFavorite, media: media, movie: savedMovieResult, videoGame: savedVideoGameResult, anime: savedAnimeResult, book: savedBookResult};
     
     //Get current local storage
     savedHistory = JSON.parse(localStorage.getItem("allSavedTitles"));
@@ -224,7 +224,7 @@ function displaySavedResult(event) {
             savedMedia = savedHistory[i].media;
             //For media results needing to display
             savedMovie = savedHistory[i].movie;
-            //savedBook = savedHistory[i].book;
+            savedBook = savedHistory[i].book;
             savedVideoGame = savedHistory[i].videoGame;
             savedAnime = savedHistory[i].anime;
         };
@@ -237,7 +237,7 @@ function displaySavedResult(event) {
     displayFavoriteBox(savedMedia,savedTitle);
     //For results-section
     displaySavedMovieResult(savedMovie);
-    //displaySavedBookResult(savedBook);
+    displaySavedBookResult(savedBook);
     displaySavedVideoGameResult(savedVideoGame);
     displaySavedAnimeResult(savedAnime);
 };

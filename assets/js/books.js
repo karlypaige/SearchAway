@@ -56,23 +56,14 @@ function pickGenreFromBook(obj){
 
     //convert book Genre to allGenreArray
     for (var b=0; b<bookGenreArray.length; b++) {
-        //if value at index is single value
-        if(bookGenreArray[b].length === 1){
-            if (bookGenreArray[b] == bookGenre) {
-                //capture the index
+        for (var sub=0; sub<bookGenreArray[b].length; sub++){
+            if (bookGenreArray[b][sub] == bookGenre) {
                 passedGenre = allGenreArray[b];
-                break;
-            } 
-            //if value at index is array
-        } else if (bookGenreArray[b].length > 1){
-            for (var sub=0; sub<bookGenreArray[b].length; sub++){
-                if (bookGenreArray[b][sub] == bookGenre) {
-                    passedGenre = allGenreArray[b];
-                    break;
-                }
+                // break;
             }
-            //if value not found select a drama
-        } else {
+        }
+        //if value not found select a drama
+        if (!passedGenre) {
             passedGenre = "drama'";
         }
     }
@@ -94,7 +85,7 @@ function searchBooksByGenre(genre) {
     var apiKey="AIzaSyBSs5kWswhDUiDMYdYxtnVKl8h-wbTTxRw";
     let bookGenre = '';
 
-    var queryGenre="https://www.googleapis.com/books/v1/volumes?q=+subject:" + genre + "&maxResults=" + 40;// + "&key=" + apiKey;
+    var queryGenre="https://www.googleapis.com/books/v1/volumes?q=+subject:" + genre + "&maxResults=" + 40 + "&key=" + apiKey;
 
     $.ajax({
         url: queryGenre,
@@ -118,15 +109,39 @@ function searchBooksByGenre(genre) {
 
         newBook = findAndUpdateBook();
         
-        //display results
-        $("#book-title").text(newBook.title);
-        $("#book-poster").attr("src", newBook.imageLinks.thumbnail);
-        $("#book-rating").text(newBook.categories[0] + " (" + newBook.maturityRating + ")");
-        $("#book-plot").text(newBook.description);
-        $("#book-score").text("Average book rating: " + newBook.averageRating);
-        $("#book-full-url").attr("href", newBook.canonicalVolumeLink);
+        bookResultSection(newBook);
 
     });
     
+};
+
+function bookResultSection(bookResult) {
+    console.log(bookResult);
+
+    //Pass this title in case it needs to be saved to local storage
+    results("book", bookResult.title);
+
+    //display results
+    $("#book-title").text(bookResult.title);
+    $("#book-poster").attr("src", bookResult.imageLinks.thumbnail);
+    $("#book-rating").text(bookResult.categories[0] + " (" + bookResult.maturityRating + ")");
+    $("#book-plot").text(bookResult.description);
+    $("#book-score").text("Average book rating: " + bookResult.averageRating);
+    $("#book-full-url").attr("href", bookResult.canonicalVolumeLink);
+}
+
+//This will display the movie result that was saved to a button from local storage
+function displaySavedBookResult(savedBook){
+    console.log("SAVED BOOK IS: " + savedBook);
+    let recBookURL = "https://www.googleapis.com/books/v1/volumes?q="+ savedBook + "&maxResults=" + 1 + "&key=" + apiKey;
+
+    $.ajax({
+        url: recBookURL,
+        method: "GET"
+    }).then(function(responseResult) {
+        //Call function to display the results
+        bookResultSection(responseResult);
+        
+    });
 };
 
